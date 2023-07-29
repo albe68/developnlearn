@@ -19,7 +19,6 @@ const studentController=(
 
     const getAllStudents=asyncHandler(async(req:Request,res:Response)=>{
         const students=await getAllStudentsU(dbRepositoryStudent);
-        console.log(students)
         res.status(200).json({
             status:'success',
             message:'successylly retrieved all students',

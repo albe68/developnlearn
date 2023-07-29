@@ -13,14 +13,12 @@ export const studentRegister=async (
     refreshTokenRepository:ReturnType<RefreshTokenDbInterface>,
     authService:ReturnType<AuthServiceInterface>,
     )=>{
-        console.log(typeof student.password,"sasasa")
     student.email=student?.email.toLowerCase();
     const isEmailAlreadyRegistered=await studentRepository.getStudentByEmail(student.email);
 
     if(isEmailAlreadyRegistered){
         throw new AppError('User with same email already exsists..!',401);
     }
-    console.log(typeof student.password,"this is funny")
     if(student.password){
         student.password= await authService.hashPassword(student.password)
     }

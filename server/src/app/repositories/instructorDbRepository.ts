@@ -7,7 +7,6 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
         await repository.addInstructor(instructor);
     }
     const getInstructorByEmail=async(email:string)=>{
-        console.log(email,"get")
         const instructor:SavedInstructorInterface | null =await Instructor.findOne({email});
         return instructor;
     }

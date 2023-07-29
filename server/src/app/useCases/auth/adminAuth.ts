@@ -12,16 +12,13 @@ export const adminLogin =async(
     authService:ReturnType<AuthServiceInterface>,
     
 )=>{
-    console.log(email,password,'check')
     const admin: AdminSavedDbInterface | null= await adminRepository.getAdminByEmail(email);
-    console.log(admin,"@adminAuth")
 
     if(!admin){
         throw new AppError('Admin email is wrong',401)
     }
 
     const isPasswordCorrect=await authService.comparePassword(password,admin.password);
-    console.log(password,admin.password,"hi")
     if(!isPasswordCorrect){
         throw new AppError('credentials are wrong',401)
     }

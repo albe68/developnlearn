@@ -10,7 +10,6 @@ export const studentRepositoryMongoDB=()=>{
         }
         const getStudentByEmail=async(email:String)=>{
             const user:StudentInterface | null =await Student.findOne({email});
-            console.log("loggggerrr")
             return user;
         }
 

@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 // import configKeys from '../../config';
-console.log("haahah")
 
 const expressConfig=(app:Application)=>{
     // if(configKeys.NODE_ENV=='development')
@@ -22,7 +21,6 @@ const expressConfig=(app:Application)=>{
     
         
     )
-    console.log('hi12')
 }
 
 

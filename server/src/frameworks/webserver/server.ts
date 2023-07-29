@@ -1,6 +1,5 @@
 import { Server } from 'http';
 // import configKeys from '../../config';
-console.log(Server)
 
 const serverConfig= (server:Server)=>{
         

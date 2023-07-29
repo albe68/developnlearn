@@ -9,7 +9,6 @@ export const instructorRegister=async(
     instructorRepository:ReturnType<InstructorDbInterface>,
     authService:ReturnType<AuthServiceInterface>)=>{
         const {password}: {password:string}=instructor;
-        console.log(instructor)
         instructor.email=instructor?.email.toLowerCase();
         const isEmailAlreadyRegistered=await instructorRepository.getInstructorByEmail(instructor.email);
         if(isEmailAlreadyRegistered){
@@ -32,7 +31,6 @@ authService:ReturnType<AuthServiceInterface>
 )=>{
     const instructor:SavedInstructorInterface | null =
     await instructorRepository.getInstructorByEmail(email);
-    console.log(instructor,"ins@")
     if(!instructor){
         throw new AppError("Instructor doesn't exist,please register",401);
     }

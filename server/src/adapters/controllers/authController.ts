@@ -104,7 +104,6 @@ const authController=(
 
     const loginAdmin=asyncHandler(async(req:Request,res:Response)=>{
         const{email,password}:{email:string;password:string}=req.body;
-        console.log(email,password,"cred")              
 
         const{accessToken,refreshToken}=await adminLogin(
             email,
