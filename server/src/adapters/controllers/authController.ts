@@ -55,6 +55,7 @@ const authController=(
 
     const loginStudent=asyncHandler(async(req:Request,res:Response)=>{
         const {email,password}:{email:string;password:string}=req.body;
+        console.log("AUTH ROUTE CALLED for real");
         const {accessToken,refreshToken}= await studentLogin(
             email,
             password,

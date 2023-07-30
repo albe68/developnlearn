@@ -10,11 +10,9 @@ const verifyPassword=(token:string)=> service.verifyToken(token);
 
 const  generateToken= (payload:JwtPayload) => service.generateToken(payload);
 
-const generateRefreshToken=(payload:JwtPayload)=>
-service.generateRefreshToken(payload);
+const generateRefreshToken=(payload:JwtPayload)=>service.generateRefreshToken(payload);
 
-const decodedTokenAndReturnExpireDate=(token:string)=>
-service.decodedTokenAndReturnExpireDate(token);
+const decodedTokenAndReturnExpireDate=(token:string)=>service.decodedTokenAndReturnExpireDate(token);
 
 const decodeToken=(token:string)=> service.decodeToken(token);
 
