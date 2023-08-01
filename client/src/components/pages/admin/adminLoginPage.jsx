@@ -6,7 +6,6 @@ import {adminLogin} from '../../../api/endpoints/auth/adminAuth'
     console.log("hi")
       
       try { 
-        console.log("hi",adminData)
         const response=await adminLogin(adminData)
         
       }
@@ -16,9 +15,9 @@ import {adminLogin} from '../../../api/endpoints/auth/adminAuth'
       
     }
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#B3B6E5]">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#ffffff]">
       <div className="text-4xl font-semibold text-white my-8">DevelopnLearn</div>
-      <div className="bg-[#7C83F7] rounded-lg shadow-lg text-black p-8 sm:w-96">
+      <div className="bg-[#000000] rounded-lg shadow-lg text-white p-8 sm:w-96">
         <Formik initialValues={{email:"",password:""}} onSubmit={handleSubmit}>
         <Form >
           {/* Part 1: Text Content */}
@@ -60,13 +59,8 @@ import {adminLogin} from '../../../api/endpoints/auth/adminAuth'
             >
               Login
             </button>
-            {/* Google Login Button */}
-            <button className="w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition duration-300">
-              Login with Google
-            </button>
-            <div className="mt-4 text-sm text-gray-300">
-              Don't have an account yet? <a href="#signup" className="underline">Sign Up</a>
-            </div>
+           
+          
           </div>
         </Form>
         </Formik>

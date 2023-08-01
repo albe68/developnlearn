@@ -5,7 +5,7 @@ const decodeToken=(jwtToken)=>{
         const decodeToken=jwtDecode(jwtToken);
         return decodeToken;
     }catch(err){
-        console.log("Error while decoding token in decode file",err);
+        console.log("Error while decoding token in decode file",err,jwtToken);
         return null;
     }
 }

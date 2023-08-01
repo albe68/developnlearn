@@ -2,19 +2,16 @@ import React, { useEffect } from 'react'
 import { Formik,Form,Field,ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
-import {registerStudent} from '../../../api/endpoints/auth/studentAuth'
+import {registerInstructor} from '../../../api/endpoints/auth/instructorAuth'
 import { selectIsloggedIn } from '../../../redux/reducers/authSlice';
 import { useSelector } from 'react-redux';
-import {studentRegisterValidationSchema}  from '../../../validations/auth/studentRegisterValidation'
-export default function StudentRegisterPage() {
+export default function InstructorRegisterPage() {
     const navigate=useNavigate();
-    const handleSubmit=async(studentInfo)=>{
-      console.log("hi")
-
+    const handleSubmit=async(instructorInfo)=>{
         try{
-            await registerStudent(studentInfo);
-            console.log(studentInfo.fir,"details")
-            navigate("/login");
+            await registerInstructor(instructorInfo);
+            console.log(instructorInfo,"details")
+            navigate("/instructors/login");
         }catch(err){
             console.log(err,"erorrrr i consoled")
         }
@@ -22,7 +19,7 @@ export default function StudentRegisterPage() {
     const isLoggedIn=useSelector(selectIsloggedIn);
     useEffect(()=>{
       if(isLoggedIn){
-        navigate('/')
+        navigate('/instructors')
       }
     },[isLoggedIn,navigate])
 
@@ -30,7 +27,7 @@ export default function StudentRegisterPage() {
     <div className="flex items-center justify-center h-screen bg-[#B3B6E5] sm:p-6 md:p-12">
     <div className="bg-[#7C83F7] flex flex-col sm:flex-row rounded-lg shadow-md text-black">
       {/* Part 1  */}
-      <div className="p-8 sm:w-96">
+      {/* <div className="p-8 sm:w-96">
         <h2 className="text-5xl text-black font-semibold mb-4">Signup</h2>
         <h2 className="text-sm font-semibold mb-2">✓ Access up-to-date resources</h2>
         <h2 className="text-sm font-semibold mb-2">✓ 20+ Premium tech courses</h2>
@@ -74,13 +71,12 @@ export default function StudentRegisterPage() {
             <p>Course 3</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Part 2*/}
       <div className="p-8 bg-[#686DC5] rounded-lg w-full sm:w-96 flex flex-col">
         <h2 className="text-3xl font-semibold mb-4">Create an Account</h2>
-        <Formik initialValues={{firstName:'',lastName:'',email:'',password:'',confirmPassword:'',mobile:''}}
-          validationSchema={studentRegisterValidationSchema}  onSubmit={handleSubmit}>
+        <Formik initialValues={{firstName:'',lastName:'',email:'',password:'',confirmPassword:'',mobileNumber:'',role:'instructor',experience:'',qualification:'' }}onSubmit={handleSubmit}>
             <Form>
             <div className="mb-4">
             <label htmlFor="email" className="block font-semibold mb-2">
@@ -111,8 +107,6 @@ export default function StudentRegisterPage() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               required
             />
-            <ErrorMessage name="lastName" component='div' className='text-red-500 text-sm'/>
-
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="block font-semibold mb-2">
@@ -127,25 +121,49 @@ export default function StudentRegisterPage() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               required
             />
-            <ErrorMessage name="email" component='div' className='text-red-500 text-sm'/>
-
           </div>
           <div className="mb-4">
-            <label htmlFor="phone" className="block font-semibold mb-2">
+            <label htmlFor="mobileNumber" className="block font-semibold mb-2">
               Phone:
             </label>
             <Field
-              type="phone"
-              id="mobile"
-              name='mobile'
-              autoComplete="mobile"
+              type="mobileNumber"
+              id="mobileNumber"
+              name='mobileNumber'
+              autoComplete="mobileNumber"
 
-              placeholder="Enter your phone number"
+              placeholder="Enter your phone mobileNumber"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               required
             />
-            <ErrorMessage name="mobile" component='div' className='text-red-500 text-sm'/>
-
+          </div>
+          <div className="mb-4">
+            <label htmlFor="lastname" className="block font-semibold mb-2">
+            experience:
+            </label>
+            <Field
+              type="experience"
+              id="experience"
+              name="experience"
+              autoComplete="experience"
+              placeholder="Enter your experience"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="lastname" className="block font-semibold mb-2">
+            qualification:
+            </label>
+            <Field
+              type="qualification"
+              id="qualification"
+              name="qualification"
+              autoComplete="qualification"
+              placeholder="Enter your qualification"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+              required
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block font-semibold mb-2">
@@ -160,10 +178,7 @@ export default function StudentRegisterPage() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               required
             />
-            <ErrorMessage name="password" component='div' className='text-red-500 text-sm'/>
-
           </div>
-    
           <button
             type="submit"
             className="w-full bg-green-500 text-white font-semibold py-2 rounded-lg mb-4"
@@ -175,10 +190,7 @@ export default function StudentRegisterPage() {
             
         </Formik>
         
-        {/* Google Login Button */}
-        {/* <button className="w-full bg-red-500 text-white font-semibold py-2 rounded-lg">
-          Sign Up with Google
-        </button> */}
+      
       </div>
     </div>
   </div>

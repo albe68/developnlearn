@@ -17,6 +17,8 @@ interface Istudent extends Document{
         coursesEnrolled:mongoose.Schema.Types.ObjectId[];
         dateJoined:Date;
         isGoogleUser:boolean;
+        isBlocked:boolean;
+        blockedReason:string;
 }
 
 const studentSchema= new Schema <Istudent>({
@@ -42,6 +44,14 @@ const studentSchema= new Schema <Istudent>({
     password:{
         type:String,
 
+    },
+    isBlocked:{
+        type:Boolean,
+        default:false
+    },
+    blockedReason:{
+        type:String,
+        default:''
     }
 })
 

@@ -11,6 +11,7 @@ export const instructorRegister=async(
         const {password}: {password:string}=instructor;
         instructor.email=instructor?.email.toLowerCase();
         const isEmailAlreadyRegistered=await instructorRepository.getInstructorByEmail(instructor.email);
+        
         if(isEmailAlreadyRegistered){
             throw new AppError('instructor is already registered',401);
         }
@@ -61,3 +62,4 @@ authService:ReturnType<AuthServiceInterface>
 
 
     }
+

@@ -13,7 +13,7 @@ export const adminLogin =async(
     
 )=>{
     const admin: AdminSavedDbInterface | null= await adminRepository.getAdminByEmail(email);
-
+    console.log(admin)
     if(!admin){
         throw new AppError('Admin email is wrong',401)
     }

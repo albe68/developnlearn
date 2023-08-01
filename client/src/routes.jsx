@@ -7,6 +7,9 @@ import InstructorLoginPage from "./components/pages/instructor/instructorLoginPa
 import InstructorHomePage from "./components/pages/instructor/instructorHomePage";
 import AdminLoginPage from './components/pages/admin/adminLoginPage';
 import StudentMangement from './components/pages/admin/studentMangement'
+import AdminHomePage from './components/pages/admin/adminHomePage'
+import InstructorManagement from './components/pages/admin/instructorManagement'
+import InstructorRegisterPage from './components/pages/instructor/instructorRegisterPage'
 const AppRouter=createBrowserRouter(
     
 [
@@ -26,8 +29,12 @@ const AppRouter=createBrowserRouter(
     path:'/register',
     element:<StudentRegisterPage/>
 },{
-    path:'/instructor/login',
+    path:'/instructors/login',
     element:<InstructorLoginPage/>
+},
+{
+    path:'/instructors/register',
+    element:<InstructorRegisterPage/>
 },
 
 {
@@ -43,20 +50,26 @@ const AppRouter=createBrowserRouter(
 },
 {
     path:'/admin',
-    element:<Admin/>,
-    children:[
-        {
+    element:<AdminHomePage/>,
+    
+     
+    
+   
+    
+},
+   {
             path:'/admin/login',
             element:<AdminLoginPage/>,
         },
-        {
-            path:'/admin/students',
-            element:<StudentMangement/>
-            
-        }
-    ],
+{
+    path:'/admin/students',
+    element:<StudentMangement/>
     
-},
+},{
+    path:'/admin/instructors',
+    element:<InstructorManagement/>
+    
+}
 
 ])
 export default AppRouter;

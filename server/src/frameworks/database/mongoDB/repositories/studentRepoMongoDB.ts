@@ -8,8 +8,10 @@ export const studentRepositoryMongoDB=()=>{
         const addStudent=async (student:StudentRegisterInterface)=>{
             return await Student.create(student)
         }
-        const getStudentByEmail=async(email:String)=>{
+        const getStudentByEmail=async(email:string)=>{
+
             const user:StudentInterface | null =await Student.findOne({email});
+            console.log(user,"here")
             return user;
         }
 
@@ -17,11 +19,39 @@ export const studentRepositoryMongoDB=()=>{
             const students:StudentInterface[]|null =await Student.find({})
             return students;
         }
+
+        const getStudent=async(id:string)=>{
+            const student:StudentInterface[]|null =
+            await Student.findById({
+            _id:new mongoose.Types.ObjectId(id)
+            });
+            return student
+        }
+
+        const blockStudent=async (id:string)=>{
+                await Student.updateOne(
+                    {_id: new mongoose.Types.ObjectId(id)},
+                    {isBlocked:true}
+                );
+        }
+
+        const unBlockStudent =async (id:string)=>{
+            console.log("first")
+            await Student.updateOne({
+                _id:new mongoose.Types.ObjectId(id),
+            },
+            {isBlocked:false,blockedReason:null}
+
+            );
+        }
      
         return{
             addStudent,
             getStudentByEmail,
-            getAllStudents
+            getAllStudents,
+            getStudent,
+            blockStudent,
+            unBlockStudent
             
         }
 }

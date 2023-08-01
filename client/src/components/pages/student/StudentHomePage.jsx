@@ -5,8 +5,8 @@ import { selectUserType } from "../../../redux/reducers/authSlice";
 import Navbar from '../../navBar'
 import HomeCards from '../../HomeCards'
 import Footer from "../../Footer";
-
-
+import HomeHorizontalCard from "../../HomeHorizontalCard"
+import Companies from "../../home/Companies"
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -14,7 +14,6 @@ const StudentHomePage=()=>{
 
     const isLoggedIn=selectIsloggedIn;
     const user=useSelector(selectUserType)
-    console.log(isLoggedIn)
     useEffect(()=>{
         isLoggedIn && user==="student"
         console.log("hi")
@@ -23,10 +22,7 @@ const StudentHomePage=()=>{
         
  return (
     <>
- 
-
-
-            <div className="bg-white">
+<div className="bg-white">
                
     <Navbar/>
       <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -54,11 +50,10 @@ const StudentHomePage=()=>{
           </div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Data to enrich your online business
+              Want to Hustle?
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat fugiat aliqua.
+              This is the platform to learn,experience share your skills.Where you and everyone learn together.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
@@ -88,7 +83,9 @@ const StudentHomePage=()=>{
         </div>
       </div>
     </div>
-    <HomeCards/>
+    <Companies/>       
+     <HomeCards/>
+    <HomeHorizontalCard/>
     <Footer/>
           </>
           )

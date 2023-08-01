@@ -5,12 +5,14 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dialog } from '@headlessui/react'
 import { Button } from "@material-tailwind/react";
 
+
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Home', href: '#', current: true },
+    { name: 'Courses', href: '#', current: false },
+    { name: 'Alumini', href: '#', current: false },
+    { name: 'Resources', href: '#', current: false },
   ]
+  
 
 export default function Navbar() {
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -20,12 +22,13 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div className="flex lg:flex-1">
     <a href="#" className="-m-1.5 p-1.5">
-  <span className="sr-only">Your Company</span>
-  <img
+  <p className="sr-only">Your Company</p>
+  {/* <img
     className="h-8 w-auto"
     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
     alt=""
-  />
+  /> */}
+  <h1>developnlearn</h1>
     </a>
     </div>
     <div className="flex lg:hidden">
@@ -46,15 +49,19 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 ))}
 </div>
 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-{/* {
-isLoggedIn?(<a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+{/* <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
   user <span aria-hidden="true">&rarr;</span>
-</a>):(<a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
-  Log in <span aria-hidden="true">&rarr;</span>
-</a>)
-} */}
+</a> */}
 
 </div>
+
+{/* <a href="/login" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Logout</a> */}
+
+<a href="/login" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Login</a>
+
+
 </nav>
 <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
 <div className="fixed inset-0 z-50" />
@@ -98,6 +105,7 @@ isLoggedIn?(<a href="/login" className="text-sm font-semibold leading-6 text-gra
         Log in
       </a>
     </div>
+    
   </div>
 </div>
 </Dialog.Panel>

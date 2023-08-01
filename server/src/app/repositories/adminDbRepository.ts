@@ -5,7 +5,6 @@ export const adminDbRepository=(
     )=>{
        
         const getAdminByEmail=async(email:string)=>await repository.getAdminByEmail(email);
-            
              return{
                 getAdminByEmail
                     };

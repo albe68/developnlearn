@@ -1,14 +1,14 @@
 import {getAllStudentsService,blockStudentService,unBlockStudentService} from '../../services/studentManageService.js';
+import  END_POINTS from '../../../constants/endpoints'
 
 export const getAllStudents= ()=>{
-    return getAllStudentsService('/api/students/get-all-students');
+    return getAllStudentsService(END_POINTS.GET_ALL_STUDENTS);
 }
 export const blockStudent=(studentId)=>{
-    console.log(studentId,"helooooo")
-    return blockStudentService('/api/students/block-student/64c641bf0bc94f9755be83c7',studentId)
+    return blockStudentService(`${BLOCK_INSTRUCTORS}${studentId}`,studentId)
 }
 
 export const unblockStudent=(studentId)=>{
-    return unBlockStudentService('/api/students/unblock-student/64c641bf0bc94f9755be83c7',studentId)
+    return unBlockStudentService(`/api/students/unblock-student/${studentId}`,studentId)
 
 }

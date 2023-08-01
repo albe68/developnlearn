@@ -21,3 +21,13 @@ export const login =async(endpoint,data)=>{
 
     }
 }
+
+export const register =async(endpoint,data)=>{
+    try{
+        const response=await axiosInstance.post(`${endpoint}`,data);
+        return response;
+    }catch(error){
+        return Promise.reject(error);
+
+    }
+}

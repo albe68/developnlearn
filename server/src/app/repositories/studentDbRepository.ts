@@ -12,11 +12,20 @@ export const studentDbRepository=(
     await repository.getStudentByEmail(email);
 
     const getAllStudents=async ()=> await repository.getAllStudents();
+
+    const getStudent=async (id:string)=>await repository.getStudent(id);
+
+    const blockStudent=async (id:string) => await repository.blockStudent(id);
+
+    const unBlockStudent=async (id:string)=> await repository.unBlockStudent(id)
     
     return {
         addStudent,
         getStudentByEmail,
-        getAllStudents
+        getAllStudents,
+        getStudent,
+        blockStudent,
+        unBlockStudent
         
     }
 }

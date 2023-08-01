@@ -10,12 +10,21 @@ export const instructorDbRepoMongoDB =()=>{
         }
 
         const getInstructorByEmail=async(email:string)=>{
-        const instructor:SavedInstructorInterface[]|null=await Instructor.findOne({email});
+        const instructor:SavedInstructorInterface|null=await Instructor.findOne({email});
         return instructor;
         }
 
+        const getAllInstructors=async()=>{
+            return await Instructor.find()
+        }
+
   
-    return {addInstructor,getInstructorByEmail};
+    return {
+        addInstructor,
+        getInstructorByEmail,
+        getAllInstructors
+    
+    };
 };
 
 export type InstructorRepositoryMongoDB =typeof instructorDbRepoMongoDB;

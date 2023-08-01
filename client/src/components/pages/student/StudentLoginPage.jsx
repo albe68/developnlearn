@@ -4,6 +4,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { setToken } from '../../../redux/reducers/authSlice';
 import { useNavigate } from "react-router-dom";
 import { selectIsloggedIn } from '../../../redux/reducers/authSlice';
+import { Formik,Form,Field,ErrorMessage } from 'formik';
+import {studentLoginValidationSchema} from "../../../validations/auth/studentLoginValidationSchema"
 const StudentLoginPage = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
@@ -50,7 +52,8 @@ const StudentLoginPage = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-[#B3B6E5]">
       <div className="text-4xl font-semibold text-white my-8">DevelopnLearn</div>
       <div className="bg-[#7C83F7] rounded-lg shadow-lg text-black p-8 sm:w-96">
-        <form onSubmit={handleFormSubmit}>
+        <Formik initialValues={{email:"",password:""} } validationSchema={studentLoginValidationSchema}>
+        <Form onSubmit={handleFormSubmit} valid >
           {/* Part 1: Text Content */}
           <div>
             <h2 className="text-3xl font-semibold mb-4">Login to Your Account</h2>
@@ -58,7 +61,7 @@ const StudentLoginPage = () => {
               <label htmlFor="email" className="block font-semibold mb-2">
                 Email:
               </label>
-              <input
+              <Field
                 type="email"
                 id="email"
                 value={email} // Bind the value attribute to the email state
@@ -67,12 +70,14 @@ const StudentLoginPage = () => {
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none"
                 required
               />
+            <ErrorMessage name="email" component='div' className='text-red-500 text-sm'/>
+
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="block font-semibold mb-2">
                 Password:
               </label>
-              <input
+              <Field
                 type="password"
                 id="password"
                 value={password} // Bind the value attribute to the password state
@@ -81,6 +86,8 @@ const StudentLoginPage = () => {
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none"
                 required
               />
+            <ErrorMessage name="password" component='div' className='text-red-500 text-sm'/>
+
             </div>
             <button
               type="submit"
@@ -89,14 +96,15 @@ const StudentLoginPage = () => {
               Login
             </button>
             {/* Google Login Button */}
-            <button className="w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition duration-300">
+            {/* <button className="w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition duration-300">
               Login with Google
-            </button>
+            </button> */}
             <div className="mt-4 text-sm text-gray-300">
-              Don't have an account yet? <a href="#signup" className="underline">Sign Up</a>
+              Don't have an account yet? <a href="/register" className="underline">Sign Up</a>
             </div>
           </div>
-        </form>
+        </Form>
+        </Formik>
       </div>
     </div>
   );

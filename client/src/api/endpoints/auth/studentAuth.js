@@ -1,12 +1,10 @@
 import {login,register} from '../../services/auth/studentAuthServices'
-
+import  END_POINTS from '../../../constants/endpoints'
 export const loginStudent=(email,password)=>{
     const student={email,password}
-    console.log(student,"into one object");
-    return login('api/auth/student-login',student)
+    return login(END_POINTS.STUDENT_LOGIN,student)
 }
 
 export const registerStudent=(studentData)=>{
-    console.log(studentData,"into one object");
-    return register('api/auth/student-register',studentData)
+    return register(END_POINTS.STUDENT_REGISTER,studentData)
 }

@@ -15,7 +15,6 @@ axiosInstance.interceptors.response.use(
 export const getAllStudentsService =async(endpoint)=>{
     try{
         const response=await axiosInstance.get(`${endpoint}`)
-        console.log(response);
         return response.data
     }catch(err){
         console.log("err",err)
@@ -25,7 +24,6 @@ export const getAllStudentsService =async(endpoint)=>{
 export const blockStudentService =async (endpoint,studentId)=>{
     try{
         const response=await axiosInstance.patch(`${endpoint}`);
-        console.log(response,"response from server")
         return response.data
     }catch(err){console.log(err)}
 }
@@ -33,7 +31,6 @@ export const blockStudentService =async (endpoint,studentId)=>{
 export const unBlockStudentService =async (endpoint,studentId)=>{
     try{
         const response=await axiosInstance.patch(`${endpoint}`);
-        console.log(response,"response from server")
         return response.data
     }catch(err){console.log(err)}
 }
