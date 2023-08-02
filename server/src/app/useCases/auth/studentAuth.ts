@@ -76,3 +76,12 @@ export const studentLogin=async(
     return {accessToken,refreshToken}
 }
 
+export const studentLogout=async(
+    studentRepository:ReturnType<StudentDbInterface>,
+    refreshTokenRepository:ReturnType<RefreshTokenDbInterface>,
+    authService:ReturnType<AuthServiceInterface>
+)=>{
+    
+
+}
+

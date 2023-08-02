@@ -1,7 +1,88 @@
 import React,{useEffect, useState} from 'react'
 import AdminSideBar from '../../AdminSideBar'
 import { getAllInstructors } from '../../../api/endpoints/auth/instructorManagement';
-
+import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import {
+  Card,
+  CardHeader,
+  Input,
+  Typography,
+  Button,
+  CardBody,
+  Chip,
+  CardFooter,
+  Tabs,
+  TabsHeader,
+  Tab,
+  Avatar,
+  IconButton,
+  Tooltip,
+} from "@material-tailwind/react";
+const TABS = [
+    {
+      label: "All",
+      value: "all",
+    },
+    {
+      label: "Monitored",
+      value: "monitored",
+    },
+    {
+      label: "Unmonitored",
+      value: "unmonitored",
+    },
+  ];
+   
+  const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+   
+  const TABLE_ROWS = [
+    {
+      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+      name: "John Michael",
+      email: "john@creative-tim.com",
+      job: "Manager",
+      org: "Organization",
+      online: true,
+      date: "23/04/18",
+    },
+    {
+      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+      name: "Alexa Liras",
+      email: "alexa@creative-tim.com",
+      job: "Programator",
+      org: "Developer",
+      online: false,
+      date: "23/04/18",
+    },
+    {
+      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+      name: "Laurent Perrier",
+      email: "laurent@creative-tim.com",
+      job: "Executive",
+      org: "Projects",
+      online: false,
+      date: "19/09/17",
+    },
+    {
+      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+      name: "Michael Levi",
+      email: "michael@creative-tim.com",
+      job: "Programator",
+      org: "Developer",
+      online: true,
+      date: "24/12/08",
+    },
+    {
+      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+      name: "Richard Gran",
+      email: "richard@creative-tim.com",
+      job: "Manager",
+      org: "Executive",
+      online: false,
+      date: "04/10/21",
+    },
+  ];
 const ViewAllInstructors=()=> {
     
     const [instructors,setInstructors]=useState([]);
@@ -22,64 +103,155 @@ const ViewAllInstructors=()=> {
    
   return (
     <>
-        <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-   <span class="sr-only">Open sidebar</span>
-   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-   </svg>
-</button>
-
-<AdminSideBar/>
-
-  <div class="container mx-auto py-4">
-  <div class="overflow-x-auto bg-cyan-50 dark:bg-gray-800 shadow-md rounded-lg">
-  <table class="max-w-xs mx-auto w-full text-xs text-left text-gray-500 dark:text-gray-400 table-auto">
-    
-        <thead class="text-xs text-gray-900 uppercase dark:text-gray-400 bg-gray-100 dark:bg-gray-800">
-            <tr>
-                <th scope="col" class="px-6 py-3 font-semibold">
-                    Instructor ID
-                </th>
-                <th scope="col" class="px-6 py-3 font-semibold">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3 font-semibold">
-                    Email
-                </th>
-                <th scope="col" class="px-6 py-3 font-semibold">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3 font-semibold">
-                    Status
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {instructors.map(instructor => (
-                <tr class="bg-white dark:bg-gray-800" key={instructor._id}>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {instructor._id}
+       {/* <AdminSideBar/> */}
+       <div className="container mx-auto px-4 py-8 flex justify-end"> {/* Flex layout with justify-end */}
+  <div className="w-full md:w-3/4 pr-4"> {/* Adjust the width and add right padding */}
+    <Card className="w-full">
+      <CardHeader floated={false} shadow={false} className="rounded-none">
+        <div className="mb-4 flex items-center justify-between gap-4"> {/* Reduced gap */}
+          <div>
+            <Typography variant="h6" color="blue-gray"> {/* Changed variant to "h6" */}
+              Members list
+            </Typography>
+            <Typography color="gray" className="mt-1 text-sm font-normal"> {/* Changed className to "text-sm" */}
+              See information about all members
+            </Typography>
+          </div>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <Button variant="outlined" color="blue-gray" size="sm">
+              view all
+            </Button>
+            <Button className="flex items-center gap-3" color="blue" size="sm">
+              <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-between gap-2 md:flex-row"> {/* Reduced gap */}
+          <Tabs value="all" className="w-full md:w-max">
+            <TabsHeader>
+              {TABS.map(({ label, value }) => (
+                <Tab key={value} value={value}>
+                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                </Tab>
+              ))}
+            </TabsHeader>
+          </Tabs>
+          <div className="w-full md:w-48"> {/* Reduced width */}
+            <Input label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
+          </div>
+        </div>
+      </CardHeader>
+      <CardBody className="overflow-scroll px-0">
+        <div className="overflow-x-auto"> {/* Add horizontal scroll for small screens */}
+        <table className="mt-2 w-full min-w-max table-auto text-left">
+          
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head, index) => (
+                  <th
+                    key={head}
+                    className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 transition-colors hover:bg-blue-gray-50"
+                  >
+                    <Typography
+                      variant="small" color="blue-gray" className="flex items-center justify-between gap-1 font-normal leading-none opacity-70" 
+                    >
+                      {head}{" "}
+                      {index !== TABLE_HEAD.length - 1 && (
+                        <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
+                      )}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {TABLE_ROWS.map(({ img, name, email, job, org, online, date }, index) => {
+                const isLast = index === TABLE_ROWS.length - 1;
+                const classes = isLast ? "p-2" : "p-2 border-b border-blue-gray-50";
+          
+                return (
+                  <tr key={name}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-2"> 
+                        <Avatar src={img} alt={name} size="sm" />
+                        <div className="flex flex-col">
+                          <Typography variant="small" color="blue-gray" className="font-normal"> 
+                            {name}
+                          </Typography>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal opacity-70" 
+                          >
+                            {email}
+                          </Typography>
+                        </div>
+                      </div>
                     </td>
-                    <td class="px-6 py-4">
-                        {instructor.firstName} {instructor.lastName}
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography variant="small" color="blue-gray" className="font-normal"> 
+                          {job}
+                        </Typography>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70" 
+                        >
+                          {org}
+                        </Typography>
+                      </div>
                     </td>
-                    <td class="px-6 py-4">
-                        {instructor.email}
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Chip
+                          variant="ghost"
+                          size="sm" 
+                          value={online ? "online" : "offline"}
+                          color={online ? "green" : "blue-gray"}
+                        />
+                      </div>
                     </td>
-                    <td class="px-6 py-4">
-                        $2999
+                    <td className={classes}>
+                      <Typography variant="small" color="blue-gray" className="font-normal">
+                        {date}
+                      </Typography>
                     </td>
-                    <td class="px-6 py-4">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none" onClick={() => handleBlock(instructor._id)}>
-                            Disable Account
-                        </button>
+                    <td className={classes}>
+                      <Tooltip content="Edit User">
+                        <IconButton variant="text" color="blue-gray">
+                          <PencilIcon className="h-4 w-4" />
+                        </IconButton>
+                      </Tooltip>
                     </td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </CardBody>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-2"> 
+        <Typography variant="small" color="blue-gray" className="font-normal"> 
+          Page 1 of 10
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" color="blue-gray" size="sm"> 
+            Previous
+          </Button>
+          <Button variant="outlined" color="blue-gray" size="sm">
+            Next
+          </Button>
+        </div>
+      </CardFooter>
+    </Card>
+  </div>
 </div>
-</div>
+
+
+
+
+  
     </>
   )
 }

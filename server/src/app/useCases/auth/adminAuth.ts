@@ -12,8 +12,11 @@ export const adminLogin =async(
     authService:ReturnType<AuthServiceInterface>,
     
 )=>{
-    const admin: AdminSavedDbInterface | null= await adminRepository.getAdminByEmail(email);
-    console.log(admin)
+    console.log("first",email,password,adminRepository)
+    const admin: AdminSavedDbInterface | null=
+     await adminRepository.getAdminByEmail(email);
+    console.log("admin consoled",admin)
+
     if(!admin){
         throw new AppError('Admin email is wrong',401)
     }

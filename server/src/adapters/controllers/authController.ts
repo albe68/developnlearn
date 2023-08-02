@@ -34,7 +34,7 @@ const authController=(
     const authService=AuthServiceInterface(authServiceImpl());
 
     const dbRepositoryAdmin=adminDbRepository(adminDbRepositoryImpl());
-
+    
     const dbRepositoryInstructor=instructorDbRepository(instructorDbRepositoryImpl());
     //Student
     const registerStudent=asyncHandler(async(req:Request,res:Response)=>{
@@ -72,6 +72,11 @@ const authController=(
         })
     })
 
+    const logoutStudent=asyncHandler((req:Request,res:Response)=>{
+        console.log('Cookies: ', req.cookies)   
+
+    })
+
     const registerInstructor=asyncHandler(async(req:Request,res:Response)=>{
         const instructor: InstructorInterface=req.body;
         
@@ -105,7 +110,7 @@ const authController=(
 
     const loginAdmin=asyncHandler(async(req:Request,res:Response)=>{
         const{email,password}:{email:string;password:string}=req.body;
-
+        console.log("controller",email,password)
         const{accessToken,refreshToken}=await adminLogin(
             email,
             password,
@@ -114,6 +119,8 @@ const authController=(
             authService
             
         );
+        console.log("controller out")
+
         res.status(200).json({
             status:'success',
             message:'admin successfully logged in',
@@ -128,6 +135,7 @@ const authController=(
     return {
         registerStudent,
         loginStudent,
+        logoutStudent,
         registerInstructor,
         loginInstructor,
         loginAdmin

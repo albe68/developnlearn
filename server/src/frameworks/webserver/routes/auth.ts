@@ -31,6 +31,8 @@ const AuthRouter=()=>{
     //Student
     router.post("/student-register",controller.registerStudent);
     router.post("/student-login",controller.loginStudent);
+    router.get("/student-logout",controller.logoutStudent)
+
     //Instructor
     router.post("/instructor-register",controller.registerInstructor);
     router.post('/instructor-login',controller.loginInstructor)

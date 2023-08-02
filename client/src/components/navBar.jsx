@@ -4,17 +4,29 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dialog } from '@headlessui/react'
 import { Button } from "@material-tailwind/react";
-
-
+import { clearToken,selectIsloggedIn,selectUserType } from "../redux/reducers/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom'
 const navigation = [
     { name: 'Home', href: '#', current: true },
     { name: 'Courses', href: '#', current: false },
     { name: 'Alumini', href: '#', current: false },
     { name: 'Resources', href: '#', current: false },
   ]
-  
+  export default function Navbar() {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+  const isLoggedIn=useSelector(selectIsloggedIn);
+  const user=useSelector(selectUserType);
+  const logout=()=>{
+    console.log("logout called")
+    const accessToken=localStorage.getItem("accessToken");
+    const refreshToken=localStorage.getItem("refreshToken");
 
-export default function Navbar() {
+    dispatch(clearToken({accessToken,refreshToken,userType:'instructor'}));
+    navigate('/')
+
+  }
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -23,12 +35,12 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     <div className="flex lg:flex-1">
     <a href="#" className="-m-1.5 p-1.5">
   <p className="sr-only">Your Company</p>
-  {/* <img
-    className="h-8 w-auto"
-    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+  <img
+    className="h-16 w-auto rounded-md"
+    src="https://res.cloudinary.com/dzr02xhra/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1690902922/developnearn_ldlyhn.png" 
     alt=""
-  /> */}
-  <h1>developnlearn</h1>
+  />
+  
     </a>
     </div>
     <div className="flex lg:hidden">
@@ -55,11 +67,16 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 </div>
 
-{/* <a href="/login" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+{/* <a href="/login" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Logout</a> */}
 
-<a href="/login" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+<a href="/login" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Login</a>
+
+<button  className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+onClick={logout}
+>Logout</button>
 
 
 </nav>

@@ -2,15 +2,15 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer class="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between">
-  <p class="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
+    <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between">
+  <p className="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
     © 2023 Material Tailwind
   </p>
-  <ul class="flex flex-wrap items-center gap-y-2 gap-x-8">
+  <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
     <li>
       <a
         href="#"
-        class="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
+        className="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
       >
         About Us
       </a>
@@ -18,7 +18,7 @@ export default function Footer() {
     <li>
       <a
         href="#"
-        class="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
+        className="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
       >
         License
       </a>
@@ -26,7 +26,7 @@ export default function Footer() {
     <li>
       <a
         href="#"
-        class="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
+        className="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
       >
         Contribute
       </a>
@@ -34,7 +34,7 @@ export default function Footer() {
     <li>
       <a
         href="#"
-        class="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
+        className="block font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased transition-colors hover:text-pink-500 focus:text-pink-500"
       >
         Contact Us
       </a>

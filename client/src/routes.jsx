@@ -8,8 +8,9 @@ import InstructorHomePage from "./components/pages/instructor/instructorHomePage
 import AdminLoginPage from './components/pages/admin/adminLoginPage';
 import StudentMangement from './components/pages/admin/studentMangement'
 import AdminHomePage from './components/pages/admin/adminHomePage'
-import InstructorManagement from './components/pages/admin/instructorManagement'
+import InstructorManagement from './components/pages/admin/instructorManagement/instructorManagement'
 import InstructorRegisterPage from './components/pages/instructor/instructorRegisterPage'
+import CoursesPage from './components/pages/student/CoursesPage'
 const AppRouter=createBrowserRouter(
     
 [
@@ -20,7 +21,12 @@ const AppRouter=createBrowserRouter(
     {
         path:"/",
         element:<StudentHomePage/>
-    }]
+    },{
+        path:"courses",
+        element:<CoursesPage/>
+    }
+
+]
     
 },{
     path:'/login',

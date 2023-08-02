@@ -44,7 +44,6 @@ const authSlice=createSlice({
             localStorage.removeItem("refreshToken");
             state.isLoggedIn=false;
             state.userType="";
-            console.log("user logged out")
 
 
         }
@@ -57,6 +56,12 @@ export const selectIsloggedIn =()=>{
     const accessToken=localStorage.getItem("accessToken");
 
     return accessToken ? true:false;
+}
+
+export const selectAccessToken=(state)=>{
+    const accessTokenString=state.auth.data.accessToken;
+    const accessToken=JSON.parse(accessTokenString ?? "")?.accessToken || "";
+    return accessToken;
 }
 export const selectUserType=(state)=>{state.auth.userType};
 
