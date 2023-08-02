@@ -1,23 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form,Formik,ErrorMessage,Field } from 'formik'
 import {adminLogin} from '../../../api/endpoints/auth/adminAuth'
+import {useNavigate} from 'react-router-dom';
+import {  toast } from 'react-toastify';
  const AdminLoginPage=()=> {
+    const navigate=useNavigate();
     const handleSubmit=async(adminData)=>{
-    console.log("hi")
-      
+    console.log("hi",adminData)
+ 
       try { 
-        const response=await adminLogin(adminData)
+        const response=await adminLogin(adminData);
+        console.log(response.data.status,"data")
+        toast('Successfully Logged In', {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+          navigate('/admin')
+        
+
         
       }
       catch(err){
         console.log("error",err)
        }
+
+     
       
     }
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#ffffff]">
-      <div className="text-4xl font-semibold text-white my-8">DevelopnLearn</div>
-      <div className="bg-[#000000] rounded-lg shadow-lg text-white p-8 sm:w-96">
+      <div className="text-4xl font-semibold text-black my-8">DevelopnLearn</div>
+      <div className="bg-[#000000] rounded-lg shadow-lg text-black p-8 sm:w-96">
         <Formik initialValues={{email:"",password:""}} onSubmit={handleSubmit}>
         <Form >
           {/* Part 1: Text Content */}
@@ -65,7 +84,9 @@ import {adminLogin} from '../../../api/endpoints/auth/adminAuth'
         </Form>
         </Formik>
       </div>
+      
     </div>
+    
   )
 }
 

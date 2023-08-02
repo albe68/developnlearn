@@ -1,7 +1,9 @@
-import React from 'react'
-import ViewAllStudents  from '../../pages/admin/viewAllStudents';
+import React,{useEffect} from 'react'
 import AdminSideBar from '../../AdminSideBar';
 const AdminHomePage=()=> {
+
+
+
   return (
     <>
     <AdminSideBar/>

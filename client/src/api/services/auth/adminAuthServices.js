@@ -15,6 +15,7 @@ axiosInstance.interceptors.response.use(
 export const login=async(endpoint,data)=>{
     try{
         const response=await axiosInstance.post(`${endpoint}`,data)
+        return response;
     }catch(err){
         return Promise.reject(err);
     }
