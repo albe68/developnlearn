@@ -18,19 +18,20 @@ export const instructorDbRepoMongoDB =()=>{
             return await Instructor.find()
         }
 
-        const acceptInstructorRequest=async(instructorId:string)=>{
+        const acceptInstructorRequestMongo=async(instructorId:string)=>{
             return await Instructor.updateOne({_id:instructorId},{isVerified:true});
         }
 
         const declineInstructorRequest=async(instructorId:string)=>{
-            return await Instructor.updateOne({_id:instructorId},{isVerified:false});
+            const response= await Instructor.findOneAndUpdate({_id:instructorId},{isVerified:false});
+            return response;
         }
   
     return {
         addInstructor,
         getInstructorByEmail,
         getAllInstructors,
-        acceptInstructorRequest,
+        acceptInstructorRequestMongo,
         declineInstructorRequest
     
     };

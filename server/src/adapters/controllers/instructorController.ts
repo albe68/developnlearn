@@ -6,16 +6,18 @@ import { Request,Response } from "express";
 import asyncHandler from "express-async-handler";
 import {getAllInstructorsU,acceptInstructorRequestU,
         declineInstructorRequestU} from '../../app/useCases/management/instructorManagement'
-
+import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
+import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
 const instructorController=(
-    authServiceInterface:AuthServiceInterface,
-    authServiceImpl:AuthService,
+    
     instructorDbRepository:InstructorDbInterface,
-    instructorDbRepositoryImpl:InstructorRepositoryMongoDB
+    instructorDbRepositoryImpl:InstructorRepositoryMongoDB,
+    emailServiceInterface:SendEmailServiceInterface,
+    emailServiceImpl:SendEmailService
 )=>{
 
     const dbRepositoryInstructor=instructorDbRepository(instructorDbRepositoryImpl());
-
+    const emailService=emailServiceInterface(emailServiceImpl());
     const getAllInstructors=asyncHandler(async(req:Request,res:Response)=>{
      const instructors= await getAllInstructorsU(dbRepositoryInstructor);
      res.status(200).json({
@@ -28,7 +30,9 @@ const instructorController=(
     const acceptInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
         const instructorId:string=req.params.instructorId;
 
-        await acceptInstructorRequestU(dbRepositoryInstructor,instructorId);
+        await acceptInstructorRequestU(
+            dbRepositoryInstructor,instructorId,
+            emailService);
         res.status(200).json({
             state:"success",
             message:"Instructor request accepted successfully",

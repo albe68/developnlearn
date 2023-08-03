@@ -8,11 +8,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 const expressConfig=(app:Application)=>{
-    console.log( 
-    process.env.CONSOLE,"hello"
-
-     )
-    console.log(configKeys.test,"for a test")
+  
     // if(configKeys.NODE_ENV=='development')
     app.use(morgan('dev'));
     app.use(cors());

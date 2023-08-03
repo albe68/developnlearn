@@ -107,9 +107,7 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
+      "@src/*": ["src/*"],
     },
     "useUnknownInCatchVariables": false
   },

@@ -14,5 +14,9 @@ const configKeys={
     NODE_ENV :process.env.NODE_ENV as string,
 
     test: process.env.CONSOLE as string,
+
+    user: process.env.USER as string,
+
+    pass: process.env.PASS as string
 }
 export default configKeys;
