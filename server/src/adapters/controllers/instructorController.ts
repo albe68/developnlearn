@@ -4,7 +4,8 @@ import { AuthService } from "@src/frameworks/services/authService";
 import {InstructorDbInterface} from '@src/app/repositories/instructorDbRepository'
 import { Request,Response } from "express";
 import asyncHandler from "express-async-handler";
-import {getAllInstructorsU} from '../../app/useCases/management/instructorManagement'
+import {getAllInstructorsU,acceptInstructorRequestU,
+        declineInstructorRequestU} from '../../app/useCases/management/instructorManagement'
 
 const instructorController=(
     authServiceInterface:AuthServiceInterface,
@@ -24,9 +25,38 @@ const instructorController=(
      })
     })
 
+    const acceptInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
+        const instructorId:string=req.params.instructorId;
+
+        await acceptInstructorRequestU(dbRepositoryInstructor,instructorId);
+        res.status(200).json({
+            state:"success",
+            message:"Instructor request accepted successfully",
+            data:null
+        })
+
+    })
+
+    const declineInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
+        const instructorId:string=req.params.instructorId;
+        await declineInstructorRequestU(dbRepositoryInstructor,instructorId);
+        res.status(200).json({
+            status:"success",
+            message:"Instructor request declined successfully",
+            data:null
+        })
+
+    })
+
+
+
+
+
 
     return{
-        getAllInstructors
+        getAllInstructors,
+        acceptInstructorRequest,
+        declineInstructorRequest
     }
 }
 export default instructorController;

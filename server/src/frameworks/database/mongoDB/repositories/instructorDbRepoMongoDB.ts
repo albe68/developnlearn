@@ -18,11 +18,20 @@ export const instructorDbRepoMongoDB =()=>{
             return await Instructor.find()
         }
 
+        const acceptInstructorRequest=async(instructorId:string)=>{
+            return await Instructor.updateOne({_id:instructorId},{isVerified:true});
+        }
+
+        const declineInstructorRequest=async(instructorId:string)=>{
+            return await Instructor.updateOne({_id:instructorId},{isVerified:false});
+        }
   
     return {
         addInstructor,
         getInstructorByEmail,
-        getAllInstructors
+        getAllInstructors,
+        acceptInstructorRequest,
+        declineInstructorRequest
     
     };
 };

@@ -12,7 +12,6 @@ import { adminRepoMongoDb } from '../../database/mongoDB/repositories/adminRepoM
 import  {instructorDbRepository} from '../../../app/repositories/instructorDbRepository'
 import { instructorDbRepoMongoDB } from '../../database/mongoDB/repositories/instructorDbRepoMongoDB';
 
-console.log( refreshTokenDbRepository,"123")
 const AuthRouter=()=>{
     const router=express.Router();
     //importing exported types of the below params

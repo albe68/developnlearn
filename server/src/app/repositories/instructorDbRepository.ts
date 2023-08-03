@@ -10,12 +10,18 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
 
     const getAllInstructors=async()=>await repository.getAllInstructors();
 
+    const acceptInstructorRequest=async(instructorId:string)=> await repository.acceptInstructorRequest(instructorId);
+
+    const declineInstructorRequest=async(instructorId:string)=> await repository.declineInstructorRequest(instructorId);
+
 
   
     return{
         addInstructor,
         getInstructorByEmail,
-        getAllInstructors
+        getAllInstructors,
+        acceptInstructorRequest,
+        declineInstructorRequest
         
     }
 }
