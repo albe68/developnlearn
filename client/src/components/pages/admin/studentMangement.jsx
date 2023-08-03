@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewAllStudents  from '../../pages/admin/viewAllStudents';
+import ViewAllStudents  from './studentsTable';
  const StudentMangement=()=> {
 
   return (

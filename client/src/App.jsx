@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import StudentLoginPage from '../src/components/pages/student/StudentLoginPage';
 import { Outlet } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css"
+import AdminSideBar from './components/AdminSideBar';
 export const  Student=()=> {
   const [count, setCount] = useState(0)
 
@@ -28,10 +29,16 @@ export const Instructor=()=>{
 }
 
 export const Admin=()=>{
+  
   return (
-    <>
-    <Outlet/>
-    </>
+    <div className="flex">
+    <div className="w-1/4 lg:w-1/5">
+      <AdminSideBar />
+    </div>
+    <div className="w-3/4 lg:w-4/5 bg-gray-100 p-4">
+      <Outlet />
+    </div>
+  </div>
   )
 }
 

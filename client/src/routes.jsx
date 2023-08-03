@@ -10,7 +10,8 @@ import StudentMangement from './components/pages/admin/studentMangement'
 import AdminHomePage from './components/pages/admin/adminHomePage'
 import InstructorManagement from './components/pages/admin/instructorManagement/instructorManagement'
 import InstructorRegisterPage from './components/pages/instructor/instructorRegisterPage'
-import CoursesPage from './components/pages/student/CoursesPage'
+import CoursesPage from './components/pages/student/CoursesPage';
+import StudentsTab from "./components/pages/admin/studentsTab";
 const AppRouter=createBrowserRouter(
     
 [
@@ -54,9 +55,24 @@ const AppRouter=createBrowserRouter(
         }
     ]
 },
+
 {
-    path:'/admin',
-    element:<AdminHomePage/>,
+    path:'admin',
+    element:<Admin/>,
+    children:[
+      {  
+        path: "",
+        element:(<AdminHomePage/>),
+    
+    },
+    {
+        path:"students",
+        element:(<StudentsTab/>)
+    }
+
+
+
+    ]
     
      
     
