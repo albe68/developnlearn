@@ -21,6 +21,7 @@ const instructorRouter=()=>{
     router.get('/get-all-instructors',controller.getAllInstructors);
     router.patch('/accept-instructor-request/:instructorId',controller.acceptInstructorRequest);
     router.patch('/decline-instructor-request/:instructorId',controller.declineInstructorRequest);
+    router.get('/instructor-requests',controller.getInstructorRequests);
     return router;
 
 }

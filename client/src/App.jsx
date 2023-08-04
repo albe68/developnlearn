@@ -5,6 +5,7 @@ import StudentLoginPage from '../src/components/pages/student/StudentLoginPage';
 import { Outlet } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css"
 import AdminSideBar from './components/AdminSideBar';
+import InstructorSideBar from './components/pages/instructor/InstructorSideBar';
 export const  Student=()=> {
   const [count, setCount] = useState(0)
 
@@ -18,11 +19,16 @@ export const  Student=()=> {
 
 export const Instructor=()=>{
   return(
-    <>
+     <div className="flex ">
+    <div className="lg:w-1/6 ">
+    <InstructorSideBar/>
+    </div>
+    <div className="w-3/4 lg:w-4/5 bg-gray-100 p-4">
 
     <Outlet/>
     
-    </>
+    </div>
+  </div>
   )
 
   

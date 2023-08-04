@@ -5,7 +5,8 @@ import {InstructorDbInterface} from '@src/app/repositories/instructorDbRepositor
 import { Request,Response } from "express";
 import asyncHandler from "express-async-handler";
 import {getAllInstructorsU,acceptInstructorRequestU,
-        declineInstructorRequestU} from '../../app/useCases/management/instructorManagement'
+        declineInstructorRequestU,
+        getInstructorRequestsU} from '../../app/useCases/management/instructorManagement'
 import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
 const instructorController=(
@@ -43,13 +44,23 @@ const instructorController=(
 
     const declineInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
         const instructorId:string=req.params.instructorId;
-        await declineInstructorRequestU(dbRepositoryInstructor,instructorId);
+        await declineInstructorRequestU(dbRepositoryInstructor,instructorId,emailService);
         res.status(200).json({
             status:"success",
             message:"Instructor request declined successfully",
             data:null
         })
 
+    })
+
+    const getInstructorRequests=asyncHandler(async(req:Request,res:Response)=>{
+     var instructors=   await getInstructorRequestsU(dbRepositoryInstructor);
+        res.status(200).json({
+            status:"success",
+            message:"All Instructor Requests retrived successfully",
+            data:instructors
+
+        })
     })
 
 
@@ -60,7 +71,8 @@ const instructorController=(
     return{
         getAllInstructors,
         acceptInstructorRequest,
-        declineInstructorRequest
+        declineInstructorRequest,
+        getInstructorRequests
     }
 }
 export default instructorController;

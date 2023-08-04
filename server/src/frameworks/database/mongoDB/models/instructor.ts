@@ -78,7 +78,9 @@ const instructorSchema= new Schema({
     coursesCreated:[
         {type:mongoose.Schema.Types.ObjectId,
         ref:'Courses'}
-    ]
+    ],isRejected:{
+        type:Boolean
+    }
 
 
 })

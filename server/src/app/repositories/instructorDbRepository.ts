@@ -12,7 +12,9 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
 
     const acceptInstructorRequest=async(instructorId:string)=> await repository.acceptInstructorRequestMongo(instructorId);
 
-    const declineInstructorRequest=async(instructorId:string)=> await repository.declineInstructorRequest(instructorId);
+    const declineInstructorRequest=async(instructorId:string)=> await repository.declineInstructorRequestMongo(instructorId);
+
+    const getInstructorRequests=async()=> await repository.getInstructorRequests();
 
 
   
@@ -21,7 +23,8 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
         getInstructorByEmail,
         getAllInstructors,
         acceptInstructorRequest,
-        declineInstructorRequest
+        declineInstructorRequest,
+        getInstructorRequests
         
     }
 }

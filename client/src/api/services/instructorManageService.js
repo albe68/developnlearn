@@ -21,3 +21,22 @@ export const getAllInstructorsService=async(endpoint)=>{
         console.log(error)
     }
 }
+
+export const acceptInstructorRequestService=async(endpoint,instructorId)=>{
+    try{
+        await axiosInstance.patch(`${endpoint}${instructorId}`)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+
+export const rejectInstructorRequestService=async(endpoint,instructorId)=>{
+    try{
+        await axiosInstance.patch(`${endpoint}${instructorId}`)
+    }
+    catch(err){
+        console.log(err)
+    }
+}

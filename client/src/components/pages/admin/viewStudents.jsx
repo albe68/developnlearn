@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { LockOpenIcon, UserPlusIcon,NoSymbolIcon,LockClosedIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -15,10 +15,11 @@ import {
   Avatar,
   IconButton,
   Tooltip,
+  
 } from "@material-tailwind/react";
- 
-import {getAllStudents} from '../../../api/endpoints/auth/studentManagement'
 import { useEffect, useState } from "react";
+import { getAllStudents,unblockStudent,blockStudent } from "../../../api/endpoints/auth/studentManagement";
+import {toast} from 'react-toastify'
 const TABS = [
   {
     label: "Students",
@@ -78,37 +79,50 @@ const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
     date: "04/10/21",
   },
 ];
-export default function ViewStudents(updated,setUpdated) {
+export default function ViewStudents({updated,setUpdated}) {
   const [students,setStudents]=useState([]);
-  
-  const fetchStudents=async ()=>{
-    try{
-      console.log(hi,"hello")
-
-      const response=await getAllStudents();
-  
-      setStudents(response?.data);
-      return students;
-      
-    }catch(error){
-
-    }
-  
-
+  const [open,setOpen]=useState(false);
+  const[id,setId]=useState("");
+  const fetchStudents=async()=>{
+   try{ const response=await getAllStudents();
+    setStudents(response?.data);
   }
-  
+    catch(err){
+      console.log(err)
+    }
+  }
+  useEffect(()=>{fetchStudents()},[updated])
+  const handleUnblock=async(_id)=>{
+    console.log("tried")
 
-  useEffect(() => {
-    fetchStudents();
-  }, [updated]);
+    try{
+    const response=  await unblockStudent(_id)
+      toast.success(response.message)
 
-  return (
+      setUpdated(!updated)  
+    }catch(err){
+      console.log(err)
+    }
+  }
+  const handleBlock=async(_id)=>{
+   try {
+    const response= await blockStudent(_id);
+    toast.success(response.message)
+
+     setUpdated(!updated)  
+
+    
+    }catch(err){consolelog(err)}
+  }
+  console.log(students)
+
+    return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-              All Students
+              Active Students
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
               See information about all members
@@ -169,25 +183,25 @@ export default function ViewStudents(updated,setUpdated) {
             </tr>
           </thead>
           <tbody>
-            {students.map(({ img, name, email, job, org, online, date }, index) => {
+            {students.map(({ img,_id, email, firstName, lastName, mobile, isBlocked, date }, index) => {
               const isLast = index === TABLE_ROWS.length - 1;
               const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
               return (
-                <tr key={name}>
+                <tr key={_id}>
                   <td className={classes}>
-                    <div className="flex items-center gap-3">
-                      <Avatar src={img} alt={name} size="sm" />
+                    <div className="flex items-center gap-3"> 
+                      <Avatar src={img} alt={_id} size="sm" />
                       <div className="flex flex-col">
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                          {name}
+                          {firstName+" "+lastName}
                         </Typography>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {email}
+                          {_id}
                         </Typography>
                       </div>
                     </div>
@@ -195,14 +209,14 @@ export default function ViewStudents(updated,setUpdated) {
                   <td className={classes}>
                     <div className="flex flex-col">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {job}
+                        {email}
                       </Typography>
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal opacity-70"
                       >
-                        {org}
+                        {email}
                       </Typography>
                     </div>
                   </td>
@@ -211,22 +225,32 @@ export default function ViewStudents(updated,setUpdated) {
                       <Chip
                         variant="ghost"
                         size="sm"
-                        value={online ? "online" : "offline"}
-                        color={online ? "green" : "blue-gray"}
+                        value={isBlocked ? "disabled" : "enabled"}
+                        color={isBlocked ? "red" : "green"}
                       />
                     </div>
                   </td>
                   <td className={classes}>
                     <Typography variant="small" color="blue-gray" className="font-normal">
-                      {date}
+                      {mobile}
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <Tooltip content="Edit User">
-                      <IconButton variant="text" color="blue-gray">
-                        <PencilIcon className="h-4 w-4" />
-                      </IconButton>
-                    </Tooltip>
+                    {
+                       isBlocked?( <Tooltip content="UnBlock user">
+                         <Button variant="text" color="blue-gray" onClick={()=>handleUnblock(_id)}>
+                           <LockClosedIcon className="h-4 w-4" /> 
+                         </Button>
+                       </Tooltip>):(
+                        <Tooltip content="Block user">
+                        <Button variant="text" color="blue-gray" onClick={()=>handleBlock(_id)}  >
+                          <LockOpenIcon className="h-4 w-4" />
+                          
+                        </Button>
+                      </Tooltip>
+                       )
+                    }
+                 
                   </td>
                 </tr>
               );

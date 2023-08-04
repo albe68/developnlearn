@@ -1,11 +1,11 @@
 import { Server } from 'http';
-// import configKeys from '../../config';
+import configKeys from '../../config';
 
 const serverConfig= (server:Server)=>{
         
         const startServer=()=>{
-            server.listen(5000,()=>{
-                console.log(`Server listening on Port Number 3000`);
+            server.listen(configKeys.PORT,()=>{
+                console.log(`Server listening on Port Number ${configKeys.PORT}`);
             })
         }
         return {

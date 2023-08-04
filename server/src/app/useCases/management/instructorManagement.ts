@@ -26,7 +26,20 @@ export const acceptInstructorRequestU=async(instructorRepository:ReturnType<Inst
 }
 
 export const declineInstructorRequestU=
-async(instructorRepository:ReturnType<InstructorDbInterface>,instructorId:string)=>
+async(instructorRepository:ReturnType<InstructorDbInterface>,instructorId:string,emailService:ReturnType<SendEmailService>)=>
 {
-    await instructorRepository.declineInstructorRequest(instructorId);
+  const response=  await instructorRepository.declineInstructorRequest(instructorId);
+    if(response){
+      emailService.sendEmail(
+          'fogavid413@mliok.com',
+          'Rejected your request for Instructor Role',
+          'You are verified good to go'
+      )
+    }
+    return response;
+}
+
+export const getInstructorRequestsU=async(instructorRepository:ReturnType<InstructorDbInterface>)=>{
+  const instructors= instructorRepository.getInstructorRequests()
+  return instructors;
 }

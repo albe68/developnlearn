@@ -4,8 +4,8 @@ mongoose.set("strictQuery",true);
 
 const connectDB= async ()=>{
     try{
-        await mongoose.connect('mongodb://0.0.0.0:27017/',{ 
-            dbName:"developlearn"
+        await mongoose.connect(configKeys.MONGO_DB_URL,{ 
+            dbName:configKeys.DB_NAME
         });
         console.log(`Database connnected successfully`.bg_green);
         

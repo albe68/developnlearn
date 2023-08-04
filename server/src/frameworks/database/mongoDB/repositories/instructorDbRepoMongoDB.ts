@@ -15,16 +15,20 @@ export const instructorDbRepoMongoDB =()=>{
         }
 
         const getAllInstructors=async()=>{
-            return await Instructor.find()
+            return await Instructor.find();
         }
 
         const acceptInstructorRequestMongo=async(instructorId:string)=>{
             return await Instructor.updateOne({_id:instructorId},{isVerified:true});
         }
 
-        const declineInstructorRequest=async(instructorId:string)=>{
-            const response= await Instructor.findOneAndUpdate({_id:instructorId},{isVerified:false});
-            return response;
+        const declineInstructorRequestMongo=async(instructorId:string)=>{
+           return await Instructor.findOneAndUpdate({_id:instructorId},{$set:{isVerified:false,isRejected:true}},{new:false});
+        }
+
+        const getInstructorRequests=async()=>{
+        const instructors= await Instructor.find({isVerified:false,isRejected:false});
+        return instructors;
         }
   
     return {
@@ -32,7 +36,8 @@ export const instructorDbRepoMongoDB =()=>{
         getInstructorByEmail,
         getAllInstructors,
         acceptInstructorRequestMongo,
-        declineInstructorRequest
+        declineInstructorRequestMongo,
+        getInstructorRequests
     
     };
 };

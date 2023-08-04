@@ -3,13 +3,12 @@ import {
   Tabs,
   TabsHeader,
   TabsBody,
-  Tab,     
+  Tab,
   TabPanel,
 } from "@material-tailwind/react";
 import {
   Square3Stack3DIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
 } from "@heroicons/react/24/solid";
 import BlockedStudents from "./blockedStudents";
 import ViewStudents from "./viewStudents";
@@ -43,24 +42,24 @@ export default function StudentsTab() {
   };
 
   return (
-    React.createElement(Tabs, { value: activeTab, onChange: handleTabChange, className: "p-0.5" },
-      React.createElement(TabsHeader, { className: "ml-3.5 mr-3.5" },
-        data.map(({ label, value, icon: Icon }) => (
-          React.createElement(Tab, { key: value, value: value },
-            React.createElement("div", { className: "flex items-center gap-2" },
-              React.createElement(Icon, { className: "w-5 h-5" }),
-              label
-            )
-          )
-        ))
-      ),
-      React.createElement(TabsBody, null,
-        data.map(({ value }) => (
-          React.createElement(TabPanel, { key: value, value: value, className: "pt-5" },
-            tabComponents[value]
-          )
-        ))
-      )
-    )
+    <Tabs value={activeTab} onChange={handleTabChange} className="p-0.5">
+      <TabsHeader className="ml-3.5 mr-3.5">
+        {data.map(({ label, value, icon: Icon }) => (
+          <Tab key={value} value={value}>
+            <div className="flex items-center gap-2">
+              <Icon className="w-5 h-5" />
+              {label}
+            </div>
+          </Tab>
+        ))}
+      </TabsHeader>
+      <TabsBody>
+        {data.map(({ value }) => (
+          <TabPanel key={value} value={value} className="pt-5">
+            {tabComponents[value]} 
+          </TabPanel>
+        ))}
+      </TabsBody>
+    </Tabs>
   );
 }

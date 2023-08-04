@@ -16,6 +16,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import { useState } from "react";
  
 const TABS = [
   {
@@ -77,6 +78,14 @@ const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
   },
 ];
 export default function BlockedStudents() {
+  const[blocked,setBlocked]=useState([]);
+  const[open,setOpen]=useState(false);
+  const[id,setId]=useState("");
+  const fetchStudents=async()=>{
+  
+  }
+  //backend route for fetch blocked students
+
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">

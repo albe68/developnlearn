@@ -5,7 +5,8 @@ export const getAllStudents= ()=>{
     return getAllStudentsService(END_POINTS.GET_ALL_STUDENTS);
 }
 export const blockStudent=(studentId)=>{
-    return blockStudentService(`${END_POINTS.BLOCK_INSTRUCTORS}${studentId}`,studentId)
+    console.log("studentId",studentId)
+    return blockStudentService(`${END_POINTS.BLOCK_A_STUDENT}${studentId}`,studentId)
 }
 
 export const unblockStudent=(studentId)=>{

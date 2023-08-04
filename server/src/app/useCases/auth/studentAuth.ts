@@ -14,10 +14,16 @@ export const studentRegister=async (
     authService:ReturnType<AuthServiceInterface>,
     )=>{
     student.email=student?.email.toLowerCase();
+    student.password=student?.password.trim();
     const isEmailAlreadyRegistered=await studentRepository.getStudentByEmail(student.email);
-
+    
     if(isEmailAlreadyRegistered){
         throw new AppError('User with same email already exsists..!',401);
+    }
+
+    console.log("pass",student.password,"password");
+    if(student.password==""){
+        throw new AppError('Please provide a valid password',401)
     }
     if(student.password){
         student.password= await authService.hashPassword(student.password)
@@ -44,6 +50,7 @@ export const studentLogin=async(
     refreshTokenRepository:ReturnType<RefreshTokenDbInterface>,
     authService:ReturnType<AuthServiceInterface>
 )=>{
+    
     const student:StudentInterface | null=
     await studentRepository.getStudentByEmail(email);
 

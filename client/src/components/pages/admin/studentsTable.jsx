@@ -81,8 +81,10 @@ const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
 
  
 export default function studentsTable() {
+  
   const tableComps={
-    // all:<ViewStudents/>,
+    all:<ViewStudents/>,
+    blocked:<BlockedStudents/>
 
   }
   return (

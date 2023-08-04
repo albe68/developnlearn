@@ -8,10 +8,12 @@ import InstructorHomePage from "./components/pages/instructor/instructorHomePage
 import AdminLoginPage from './components/pages/admin/adminLoginPage';
 import StudentMangement from './components/pages/admin/studentMangement'
 import AdminHomePage from './components/pages/admin/adminHomePage'
-import InstructorManagement from './components/pages/admin/instructorManagement/instructorManagement'
 import InstructorRegisterPage from './components/pages/instructor/instructorRegisterPage'
 import CoursesPage from './components/pages/student/CoursesPage';
 import StudentsTab from "./components/pages/admin/studentsTab";
+import ViewAllInstructors from "./components/pages/admin/viewAllInstructors";
+import ViewAllInstructorsRequests from "./components/pages/admin/ViewInstructorsRequests"
+import InstructorAddCourse from "./components/pages/instructor/instructorAddCourse"
 const AppRouter=createBrowserRouter(
     
 [
@@ -49,9 +51,13 @@ const AppRouter=createBrowserRouter(
     element:<Instructor/>,
     children:[
         {
-        path:'/instructors',
-        element:<InstructorHomePage/>,
+        path:"",
+        element:(<InstructorHomePage/>),
 
+        },
+        {
+            path:'add-course',
+            element:<InstructorAddCourse/>
         }
     ]
 },
@@ -68,6 +74,15 @@ const AppRouter=createBrowserRouter(
     {
         path:"students",
         element:(<StudentsTab/>)
+    },{
+        path:'instructors',
+        element:(<ViewAllInstructors/>)
+        
+    },
+    {
+        path:'instructors/requests',
+        element:(<ViewAllInstructorsRequests/>)
+        
     }
 
 
@@ -83,15 +98,7 @@ const AppRouter=createBrowserRouter(
             path:'/admin/login',
             element:<AdminLoginPage/>,
         },
-{
-    path:'/admin/students',
-    element:<StudentMangement/>
-    
-},{
-    path:'/admin/instructors',
-    element:<InstructorManagement/>
-    
-}
+
 
 ])
 export default AppRouter;
