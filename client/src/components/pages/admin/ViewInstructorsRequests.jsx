@@ -11,8 +11,9 @@ import { useEffect, useState } from "react";
 import { getInstructorsRequests,
   acceptInstructorRequest,
   rejectInstructorRequest } from "../../../api/endpoints/auth/instructorManagement";
-   
+import useTimeAgo from "../../../hooks/useTimeAgo";
   export default function ViewAllInstructorsRequests() {
+    const TimeAgo=useTimeAgo()
     const [requests,setRequests]=useState([]);
     const handleApiCall=async()=>{
         try{
@@ -37,7 +38,7 @@ import { getInstructorsRequests,
         
       <Card className="w-96 content-center ">
         <List >
-        {requests.map(({_id,firstName,lastName})=>(  
+        {requests.map(({_id,firstName,lastName,email,mobileNumber,qualification,subjects,experience,password,isVerified,coursesCreated,dateRequested})=>(  
     <ListItem key={_id}>
             <ListItemPrefix>
               <Avatar variant="circular" alt="candice" src="/img/face-1.jpg" />
@@ -47,7 +48,7 @@ import { getInstructorsRequests,
               {firstName+" "+lastName}
               </Typography>
               <Typography variant="small" color="gray" className="font-normal">
-                Software Engineer @ Material Tailwind
+                Software Engineer @ Material Tailwind 
               </Typography>
               <Button  onClick={()=>handleAccept(_id)}>
       Accept
@@ -55,6 +56,8 @@ import { getInstructorsRequests,
     <Button  onClick={()=>handleReject(_id)}>
       Reject
     </Button>
+    <p>{TimeAgo(dateRequested)}</p>
+
             </div>
           </ListItem>))
 }        
