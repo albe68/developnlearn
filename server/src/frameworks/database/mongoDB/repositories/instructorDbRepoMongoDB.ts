@@ -1,5 +1,4 @@
 import Instructor from '../models/instructor';
-import mongoose from 'mongoose';
 import{ InstructorInterface,SavedInstructorInterface} from '../../../../types/instructorInterface';
 
 export const instructorDbRepoMongoDB =()=>{

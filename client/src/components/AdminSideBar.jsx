@@ -27,6 +27,7 @@ import {
   CubeTransparentIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from 'react-router-dom';
  
 export default function AdminSideBar() {
   const [open, setOpen] = React.useState(0);
@@ -39,9 +40,9 @@ export default function AdminSideBar() {
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 flex items-center gap-4 p-4">
-        <img src="/img/logo-ct-dark.png" alt="brand" className="h-8 w-8" />
+        <img src="https://res.cloudinary.com/dzr02xhra/image/upload/v1690902922/developnearn_ldlyhn.png" alt="brand" className="h-8 w-8" />
         <Typography variant="h5" color="blue-gray">
-          Sidebar
+          DEVELOPNEARN Admin
         </Typography>
       </div>
       <div className="p-2">
@@ -69,12 +70,14 @@ export default function AdminSideBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+              <Link to='/admin'>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Analytics
+                Home
               </ListItem>
+              </Link>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -105,24 +108,31 @@ export default function AdminSideBar() {
                 <ShoppingBagIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-                E-Commerce
+                Management
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+            <Link to='/admin/students'>
+
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Orders
+                Students
               </ListItem>
+                </Link>
+                <Link to='/admin/instructors'>
+
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Products
+                Instructors
               </ListItem>
+              </Link>
+
             </List>
           </AccordionBody>
         </Accordion>

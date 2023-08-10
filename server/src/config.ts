@@ -17,6 +17,13 @@ const configKeys={
 
     user: process.env.USER as string,
 
-    pass: process.env.PASS as string
+    pass: process.env.PASS as string,
+
+    CLOUD_NAME:process.env.CLOUDINARY_NAME as string,
+
+    CLOUD_KEY:process.env.API_KEY as string,
+
+    CLOUD_SEC:process.env.API_SECRET as string,
+
 }
 export default configKeys;

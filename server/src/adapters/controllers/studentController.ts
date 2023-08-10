@@ -22,11 +22,11 @@ const studentController=(
             status:'success',
             message:'successylly retrieved all students',
             data:students
-        })
+        });
 
     }
     
-    )
+    );
     const blockStudent=asyncHandler(async(req:Request,res:Response)=>{
         const studentId:string=req.params.studentId;
         // const reason:string=req.body.reason;

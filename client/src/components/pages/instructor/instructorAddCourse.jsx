@@ -1,21 +1,82 @@
 import React from 'react'
-import { Field,Formik,Form } from 'formik'
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
+import {useNavigate,} from 'react-router-dom';
+import AddCourseTab from './instructors-add-course'
+import Instructoruploadcontent from './instructor-upload-content';
+import PublishPage from './publishPage'
 export default function InstructorAddCourse() {
-    const intialValues={
-        title:"",
-        duration:"",
-        level:"",
-        tags:"",
-        description:"",
-        requirements:"",
-        price:""
-    }
-    const handleForm=()=>{
-        console.log("form called")
-    }
+    const navigate=useNavigate();
+
+    const [activeTab, setActiveTab] = React.useState("html");
+  
+    const data = [
+      {
+        label: "Add Course",
+        value: "html",
+        nav:'html',
+        component:<AddCourseTab/>
+      },
+      {
+        label: "Add videos",
+        value: "react",
+        component:<Instructoruploadcontent/>
+
+       
+      },
+      {
+        label: "Publish",
+        value: "vue",
+        component:<PublishPage/>
+     
+      },
+    
+    ];
+    const handleTabChange = (value) => {
+        setActiveTab(value);
+      };
   return (
     <>
-    <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+   
+ 
+ 
+  
+    <Tabs value={activeTab}>
+      <TabsHeader
+        className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+        indicatorProps={{
+          className:
+            "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
+        }}
+      >
+        {data.map(({ label, value }) => (
+          <Tab
+            key={value}
+            value={value}
+            onClick={() => handleTabChange(value)}
+            className={activeTab === value ? "text-blue-500" : ""}
+          >
+            {label}
+          </Tab>
+        ))}
+      </TabsHeader>
+      <TabsBody>
+        {data.map(({ value,component }) => (
+          <TabPanel key={value} value={value}>
+           {component}
+
+
+          </TabPanel>
+        ))}
+      </TabsBody>
+    </Tabs>
+
+    {/* <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
     <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Add Course</h2>
     <Formik initialValues={intialValues}  onSubmit={handleForm}>
     <Form>
@@ -72,7 +133,7 @@ export default function InstructorAddCourse() {
         </div>
     </Form>
     </Formik>
-</section>
+</section> */}
     </>
   )
 }

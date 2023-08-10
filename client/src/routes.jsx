@@ -4,16 +4,18 @@ import StudentLoginPage from "./components/pages/student/StudentLoginPage";
 import StudentHomePage from "./components/pages/student/StudentHomePage";
 import StudentRegisterPage from "./components/pages/student/StudentRegisterPage";
 import InstructorLoginPage from "./components/pages/instructor/instructorLoginPage";
-import InstructorHomePage from "./components/pages/instructor/instructorHomePage";
+import InstructorHomePage from "./components/pages/instructor/InstructorHomePage";
 import AdminLoginPage from './components/pages/admin/adminLoginPage';
 import StudentMangement from './components/pages/admin/studentMangement'
-import AdminHomePage from './components/pages/admin/adminHomePage'
+import AdminHomePage from './components/pages/admin/AdminHomePage'
 import InstructorRegisterPage from './components/pages/instructor/instructorRegisterPage'
 import CoursesPage from './components/pages/student/CoursesPage';
 import StudentsTab from "./components/pages/admin/studentsTab";
 import ViewAllInstructors from "./components/pages/admin/viewAllInstructors";
 import ViewAllInstructorsRequests from "./components/pages/admin/ViewInstructorsRequests"
-import InstructorAddCourse from "./components/pages/instructor/instructorAddCourse"
+import InstructorAddCourse from "./components/pages/instructor/instructorAddCourse";
+import CoursesTab from "./components/pages/course/CoursesTab";
+
 const AppRouter=createBrowserRouter(
     
 [
@@ -58,6 +60,9 @@ const AppRouter=createBrowserRouter(
         {
             path:'add-course',
             element:<InstructorAddCourse/>
+        },{
+            path:'courses',
+            element:<CoursesTab/>
         }
     ]
 },

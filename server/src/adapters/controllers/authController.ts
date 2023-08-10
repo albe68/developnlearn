@@ -4,7 +4,7 @@ import { AuthService } from '../../frameworks/services/authService'
 import { AuthServiceInterface } from '@src/app/services/authServiceInterface';
 import { StudentDbInterface } from '@src/app/repositories/studentDbRepository';
 import { StudentRepositoryMongoDB } from '@src/frameworks/database/mongoDB/repositories/studentRepoMongoDB';
-import { studentRegister,studentLogin } from '../../app/useCases/auth/studentAuth'
+import { studentRegister,studentLogin,emailVerify } from '../../app/useCases/auth/studentAuth'
 import { RefreshTokenDbInterface, refreshTokenDbRepository } from '@src/app/repositories/refreshTokenDbRepository';
 import { RefreshTokenRepositoryMongoDB } from '@src/frameworks/database/mongoDB/repositories/refreshTokenRepoMongoDB';
 import { StudentRegisterInterface } from '@src/types/studentRegisterInterface';
@@ -15,7 +15,8 @@ import { instructorRegister,instructorLogin } from '../../app/useCases/auth/inst
 import { InstructorInterface } from '@src/types/instructorInterface';
 import { InstructorDbInterface } from '@src/app/repositories/instructorDbRepository';
 import { InstructorRepositoryMongoDB } from '@src/frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB';
-
+import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
+import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
 const authController=(
     AuthServiceInterface:AuthServiceInterface,
     authServiceImpl:AuthService,
@@ -26,12 +27,16 @@ const authController=(
     instructorDbRepository:InstructorDbInterface,
     instructorDbRepositoryImpl:InstructorRepositoryMongoDB,
     adminDbRepository:AdminDbInterface,
-    adminDbRepositoryImpl:AdminRepositoryMongoDb
+    adminDbRepositoryImpl:AdminRepositoryMongoDb,
+    emailServiceInterface:SendEmailServiceInterface,
+    emailServiceImpl:SendEmailService
     )=>{
 
     const dbRepositoryUser =studentDbRepository(studentDbRepositoryImpl());
     const dbRepositoryRefreshToken=refreshTokenDbRepository(refreshTokenDbRepositoryImpl()) //check these two  refreshTokenDbRepository and refreshTokenDbRepositoryImpl 
     const authService=AuthServiceInterface(authServiceImpl());
+    const emailService=emailServiceInterface(emailServiceImpl());
+
 
     const dbRepositoryAdmin=adminDbRepository(adminDbRepositoryImpl());
     
@@ -43,7 +48,7 @@ const authController=(
             student,
             dbRepositoryUser,
             dbRepositoryRefreshToken,
-            authService
+            authService,
             );
         res.status(200).json({
             status:'success',
@@ -55,7 +60,7 @@ const authController=(
 
     const loginStudent=asyncHandler(async(req:Request,res:Response)=>{
         const {email,password}:{email:string;password:string}=req.body;
-        console.log("AUTH ROUTE CALLED for real");
+        
         const {accessToken,refreshToken}= await studentLogin(
             email,
             password,
@@ -79,9 +84,10 @@ const authController=(
 
     const registerInstructor=asyncHandler(async(req:Request,res:Response)=>{
         const instructor: InstructorInterface=req.body;
+        // const otp=authService.otpGenerate();
         
         await instructorRegister(
-        instructor,dbRepositoryInstructor,authService
+        instructor,dbRepositoryInstructor,authService,emailService
             )
             res.status(200).json({
                 status:'success',
@@ -132,13 +138,19 @@ const authController=(
 
     })
 
+    const otp=asyncHandler(async(req:Request,res:Response)=>{
+        const {number}:{number:number}=req.body;
+        
+    })
+
     return {
         registerStudent,
         loginStudent,
         logoutStudent,
         registerInstructor,
         loginInstructor,
-        loginAdmin
+        loginAdmin,
+        otp
     };
 }
 

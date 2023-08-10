@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { LockOpenIcon, UserPlusIcon,NoSymbolIcon,LockClosedIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -15,8 +15,13 @@ import {
   Avatar,
   IconButton,
   Tooltip,
+  
 } from "@material-tailwind/react";
- 
+import { useEffect, useState } from "react";
+import { allCourses } from "../../../api/endpoints/auth/courseManagement";
+import {toast} from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 const TABS = [
   {
     label: "Students",
@@ -76,24 +81,29 @@ const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
     date: "04/10/21",
   },
 ];
-
-
-
- 
-export default function studentsTable() {
-  
-  const tableComps={
-    all:<ViewStudents/>,
-    blocked:<BlockedStudents/>
-
+export default function ListCourses({updated,setUpdated}) {
+  const [courses,setCourses]=useState([]);
+  const [open,setOpen]=useState(false);
+  const[id,setId]=useState("");
+  const fetchCourses=async()=>{
+   try{ const response=await allCourses();
+    setCourses(response?.data);
   }
-  return (
+    catch(err){
+      console.log(err)
+    }
+  }
+  useEffect(()=>{fetchCourses()},[updated])
+ 
+  console.log(courses)
+
+    return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-              Members list
+              Active Students
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
               See information about all members
@@ -103,9 +113,9 @@ export default function studentsTable() {
             <Button variant="outlined" color="blue-gray" size="sm">
               view all
             </Button>
-            <Button className="flex items-center gap-3" color="blue" size="sm">
+            <Link to="/instructors/add-course" className="flex items-center gap-3" color="blue" size="sm">
               <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-            </Button>
+            </Link>
           </div>
         </div>
 
@@ -154,25 +164,25 @@ export default function studentsTable() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({ img, name, email, job, org, online, date }, index) => {
+            {courses.map(({ img,_id, title, duration, level, tags, description, requirements,price }, index) => {
               const isLast = index === TABLE_ROWS.length - 1;
               const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
               return (
-                <tr key={name}>
+                <tr key={_id}>
                   <td className={classes}>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3"> 
                       <Avatar src={img} alt={""} size="sm" />
                       <div className="flex flex-col">
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                          {name}
+                          {_id}
                         </Typography>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {email}
+                          {title}
                         </Typography>
                       </div>
                     </div>
@@ -180,39 +190,49 @@ export default function studentsTable() {
                   <td className={classes}>
                     <div className="flex flex-col">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {job}
+                        {duration}
                       </Typography>
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal opacity-70"
                       >
-                        {org}
+                        {level}
                       </Typography>
                     </div>
                   </td>
-                  <td className={classes}>
+                  {/* <td className={classes}>
                     <div className="w-max">
                       <Chip
                         variant="ghost"
                         size="sm"
-                        value={online ? "online" : "offline"}
-                        color={online ? "green" : "blue-gray"}
+                        value={isBlocked ? "disabled" : "enabled"}
+                        color={isBlocked ? "red" : "green"}
                       />
                     </div>
-                  </td>
+                  </td> */}
                   <td className={classes}>
                     <Typography variant="small" color="blue-gray" className="font-normal">
-                      {date}
+                      {tags}
                     </Typography>
                   </td>
-                  <td className={classes}>
-                    <Tooltip content="Edit User">
-                      <IconButton variant="text" color="blue-gray">
-                        <PencilIcon className="h-4 w-4" />
-                      </IconButton>
-                    </Tooltip>
-                  </td>
+                  {/* <td className={classes}>
+                    {
+                       isBlocked?( <Tooltip content="UnBlock user">
+                         <Button variant="text" color="blue-gray" onClick={()=>handleUnblock(_id)}>
+                           <LockClosedIcon className="h-4 w-4" /> 
+                         </Button>
+                       </Tooltip>):(
+                        <Tooltip content="Block user">
+                        <Button variant="text" color="blue-gray" onClick={()=>handleBlock(_id)}  >
+                          <LockOpenIcon className="h-4 w-4" />
+                          
+                        </Button>
+                      </Tooltip>
+                       )
+                    }
+                 
+                  </td> */}
                 </tr>
               );
             })}
@@ -233,5 +253,5 @@ export default function studentsTable() {
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

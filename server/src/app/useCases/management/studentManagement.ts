@@ -6,7 +6,7 @@ export const getAllStudentsU=async(
     studentRepository:ReturnType<StudentDbInterface>
 )=>{
     const students:StudentInterface[]|null=await studentRepository.getAllStudents();
-    return students
+    return students;
 }
 
 export const blockStudentU=async(

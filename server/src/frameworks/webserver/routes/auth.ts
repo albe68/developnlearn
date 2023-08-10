@@ -11,7 +11,8 @@ import { adminDbRepository } from '../../../app/repositories/adminDbRepository';
 import { adminRepoMongoDb } from '../../database/mongoDB/repositories/adminRepoMongoDB';
 import  {instructorDbRepository} from '../../../app/repositories/instructorDbRepository'
 import { instructorDbRepoMongoDB } from '../../database/mongoDB/repositories/instructorDbRepoMongoDB';
-
+import { sendEmailService } from "../../../frameworks/services/sendEmailServices";
+import { sendEmailServiceInterface } from "../../../app/services/sendEmailServiceInterface";
 const AuthRouter=()=>{
     const router=express.Router();
     //importing exported types of the below params
@@ -26,6 +27,8 @@ const AuthRouter=()=>{
         instructorDbRepoMongoDB,
         adminDbRepository,
         adminRepoMongoDb,
+        sendEmailServiceInterface,
+        sendEmailService,
        )
     //Student
     router.post("/student-register",controller.registerStudent);
@@ -34,9 +37,11 @@ const AuthRouter=()=>{
 
     //Instructor
     router.post("/instructor-register",controller.registerInstructor);
-    router.post('/instructor-login',controller.loginInstructor)
+    router.post('/instructor-login',controller.loginInstructor);
     //Admin
     router.post("/admin/admin-login",controller.loginAdmin);
+    //common
+    router.post("/verify-email",controller.otp)
     return router;
 }
 export default AuthRouter;

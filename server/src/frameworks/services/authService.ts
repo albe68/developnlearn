@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 // import configKeys from '@src/config';
 import { JwtPayload } from 'jsonwebtoken';
-
+import random from 'random'
 export const authService=()=>{
     const hashPassword=async (password:string)=>{
         const salt=await bcrypt.genSalt(10);
@@ -48,6 +48,9 @@ export const authService=()=>{
         return expirationTimeStamp;
     }
 
+    // const otpGenerate=async ()=> random.int(0, 10000); 
+
+
     return {
         comparePassword,
         generateToken,
@@ -56,6 +59,8 @@ export const authService=()=>{
         hashPassword,
         decodedTokenAndReturnExpireDate,
         decodeToken,
+        // otpGenerate
+        
     }
 }
 

@@ -4,6 +4,7 @@ export const adminDbRepository=(
     repository: ReturnType<AdminRepositoryMongoDb>
     )=>{
        const getAdminByEmail=async(email:string)=>await repository.getAdminByEmailMongo(email);
+       
 
 
       

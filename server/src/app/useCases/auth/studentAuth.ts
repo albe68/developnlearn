@@ -7,6 +7,8 @@ import { StudentRegisterInterface } from "@src/types/studentRegisterInterface";
 import {RefreshTokenDbInterface} from '../../repositories/refreshTokenDbRepository'
 import { StudentInterface } from '@src/types/studentInterface';
 import refreshToken from '@src/frameworks/database/mongoDB/models/token';
+import { otpDbRepository } from '@src/app/repositories/otpDbRepository';
+import { OtpDbRepository } from '@src/app/repositories/otpDbRepository';
 export const studentRegister=async (
     student:StudentRegisterInterface,
     studentRepository:ReturnType<StudentDbInterface>,
@@ -92,3 +94,9 @@ export const studentLogout=async(
 
 }
 
+export const emailVerify=async(
+number:number,
+otpDbRepository:ReturnType<OtpDbRepository>
+)=>{
+  await otpDbRepository.addOtp(number)
+}

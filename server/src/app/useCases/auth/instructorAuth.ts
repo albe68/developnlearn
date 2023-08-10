@@ -3,11 +3,14 @@ import { InstructorInterface, SavedInstructorInterface } from "@src/types/instru
 import { InstructorDbInterface } from "@src/app/repositories/instructorDbRepository";
 import { AuthServiceInterface } from "@src/app/services/authServiceInterface";
 import { RefreshTokenDbInterface } from "@src/app/repositories/refreshTokenDbRepository";
+import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 
 export const instructorRegister=async(
     instructor:InstructorInterface,
     instructorRepository:ReturnType<InstructorDbInterface>,
-    authService:ReturnType<AuthServiceInterface>)=>{
+    authService:ReturnType<AuthServiceInterface>,
+    emailService:ReturnType<SendEmailService>,
+    )=>{
         const {password}: {password:string}=instructor;
         instructor.email=instructor?.email.toLowerCase();
         const isEmailAlreadyRegistered=await instructorRepository.getInstructorByEmail(instructor.email);
@@ -18,6 +21,7 @@ export const instructorRegister=async(
         if(password){
             instructor.password=await authService.hashPassword(password);
         }
+        emailService.sendOtp(instructor.email,"otp","8900")
         const response=await instructorRepository.addInstructor(instructor);
         return response;
        
@@ -47,7 +51,7 @@ authService:ReturnType<AuthServiceInterface>
      const payload={
         Id:instructor._id,
         email:instructor.email,
-        role:'instructor    ',
+        role:'instructor',
          }
 
          await refreshTokenDbRepository.deleteRefreshToken(instructor._id);
@@ -61,5 +65,5 @@ authService:ReturnType<AuthServiceInterface>
     
 
 
-    }
+    };
 

@@ -19,10 +19,12 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { getAllInstructors } from "../../../api/endpoints/auth/instructorManagement";
-import {toast} from 'react-toastify'
+import {toast} from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 const TABS = [
   {
-    label: "Students",
+    label: "Instructors",
     value: "all",
   },
   {
@@ -31,7 +33,7 @@ const TABS = [
   },
 ];
  
-const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
+const TABLE_HEAD = ["Instructors", "email", "Status", "Employed", ""];
  const TABLE_ROWS = [
   {
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
@@ -129,12 +131,14 @@ export default function ViewStudents({updated,setUpdated}) {
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <Button variant="outlined" color="blue-gray" size="sm">
-              view all
+            <Button>
+            <Link to="/admin/instructors/requests" variant="outlined" color="blue-gray" size="sm">
+              Instructor Requests
+            </Link>
             </Button>
-            <Button className="flex items-center gap-3" color="blue" size="sm">
+            {/* <Button className="flex items-center gap-3" color="blue" size="sm">
               <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-            </Button>
+            </Button> */}
           </div>
         </div>
 
@@ -144,7 +148,7 @@ export default function ViewStudents({updated,setUpdated}) {
           <Tabs value="all" className="w-full md:w-max">
             <TabsHeader>
               {TABS.map(({ label, value }) => (
-                <Tab key={value} value={value}>
+                <Tab key={value} value={value} >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -191,7 +195,7 @@ export default function ViewStudents({updated,setUpdated}) {
                 <tr key={_id}>
                   <td className={classes}>
                     <div className="flex items-center gap-3"> 
-                      <Avatar src={img} alt={_id} size="sm" />
+                      <Avatar src={img} alt={""} size="sm" />
                       <div className="flex flex-col">
                         <Typography variant="small" color="blue-gray" className="font-normal">
                           {firstName+" "+lastName}

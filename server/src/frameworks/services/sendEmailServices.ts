@@ -24,8 +24,25 @@ export const sendEmailService=()=>{
         }
      });
     };
+
+    const sendOtp=(email:string,subject:string,text:string)=>{   
+        const mailOptions = {
+            from: '`test_sender <${configKeys.user}>`',
+            to: email,
+            subject: subject,
+            text: text,
+          };
+     transporter.sendMail(mailOptions,(error,info)=>{
+        if(error){
+            console.error(`Error sending email to instructor`,error)
+        }else{
+            console.log(`Email sent`,info.response)
+        }
+     });
+    };
     return{
         sendEmail,
+        sendOtp
     };
 
 }

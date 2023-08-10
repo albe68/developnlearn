@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Formik,Form,Field,ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
-
+import {  toast } from 'react-toastify';
 import {registerInstructor} from '../../../api/endpoints/auth/instructorAuth'
 import { selectIsloggedIn } from '../../../redux/reducers/authSlice';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,16 @@ export default function InstructorRegisterPage() {
         try{
             await registerInstructor(instructorInfo);
             console.log(instructorInfo,"details")
+            toast('Request sent to admin', {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
             navigate("/instructors/login");
         }catch(err){
             console.log(err,"erorrrr i consoled")

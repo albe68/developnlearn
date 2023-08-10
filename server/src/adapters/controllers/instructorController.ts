@@ -19,6 +19,8 @@ const instructorController=(
 
     const dbRepositoryInstructor=instructorDbRepository(instructorDbRepositoryImpl());
     const emailService=emailServiceInterface(emailServiceImpl());
+
+    
     const getAllInstructors=asyncHandler(async(req:Request,res:Response)=>{
      const instructors= await getAllInstructorsU(dbRepositoryInstructor);
      res.status(200).json({

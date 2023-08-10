@@ -81,8 +81,8 @@ const TABLE_HEAD = ["Student", "Function", "Status", "Employed", ""];
 ];
 export default function ViewStudents({updated,setUpdated}) {
   const [students,setStudents]=useState([]);
-  const [open,setOpen]=useState(false);
-  const[id,setId]=useState("");
+  // const [open,setOpen]=useState(false);
+  // const[id,setId]=useState("");
   const fetchStudents=async()=>{
    try{ const response=await getAllStudents();
     setStudents(response?.data);
@@ -191,7 +191,7 @@ export default function ViewStudents({updated,setUpdated}) {
                 <tr key={_id}>
                   <td className={classes}>
                     <div className="flex items-center gap-3"> 
-                      <Avatar src={img} alt={_id} size="sm" />
+                      <Avatar src={img} alt={"img"} size="sm" />
                       <div className="flex flex-col">
                         <Typography variant="small" color="blue-gray" className="font-normal">
                           {firstName+" "+lastName}

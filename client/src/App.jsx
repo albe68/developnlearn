@@ -20,10 +20,10 @@ export const  Student=()=> {
 export const Instructor=()=>{
   return(
      <div className="flex ">
-    <div className="lg:w-1/6 ">
+    <div className="lg:w-4/2 ">
     <InstructorSideBar/>
     </div>
-    <div className="w-3/4 lg:w-4/5 bg-gray-100 p-4">
+    <div className=" lg:w-full bg-gray-100 p-4">
 
     <Outlet/>
     
