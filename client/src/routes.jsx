@@ -15,7 +15,8 @@ import ViewAllInstructors from "./components/pages/admin/viewAllInstructors";
 import ViewAllInstructorsRequests from "./components/pages/admin/ViewInstructorsRequests"
 import InstructorAddCourse from "./components/pages/instructor/instructorAddCourse";
 import CoursesTab from "./components/pages/course/CoursesTab";
-
+import OtpPage from "./components/pages/student/OtpPage";
+import EditCourse from "./components/pages/course/editCourse"
 const AppRouter=createBrowserRouter(
     
 [
@@ -39,7 +40,12 @@ const AppRouter=createBrowserRouter(
 },{
     path:'/register',
     element:<StudentRegisterPage/>
-},{
+},
+{
+    path:'/otp',
+    element:<OtpPage/>
+},
+{
     path:'/instructors/login',
     element:<InstructorLoginPage/>
 },
@@ -63,6 +69,10 @@ const AppRouter=createBrowserRouter(
         },{
             path:'courses',
             element:<CoursesTab/>
+        },
+        {
+            path:'edit-course',
+            element:<EditCourse/>
         }
     ]
 },

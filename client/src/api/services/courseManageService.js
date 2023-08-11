@@ -31,3 +31,15 @@ export const allCoursesService=async(endpoint)=>{
 
     }
 }
+
+export const editCourseService=async(endpoint)=>{
+    try{
+        const response=await axiosInstance.get(`${endpoint}`);
+        return response.data;
+
+    }
+    catch(err){
+        console.log("err",err)
+
+    }
+}
