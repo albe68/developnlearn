@@ -8,3 +8,7 @@ export const loginStudent=(email,password)=>{
 export const registerStudent=(studentData)=>{
     return register(END_POINTS.STUDENT_REGISTER,studentData)
 }
+
+export const otpVerify=(studentData)=>{
+    return otpVerify(END_POINTS.OTP_VERIFY,studentData);
+}
