@@ -16,7 +16,11 @@ import ViewAllInstructorsRequests from "./components/pages/admin/ViewInstructors
 import InstructorAddCourse from "./components/pages/instructor/instructorAddCourse";
 import CoursesTab from "./components/pages/course/CoursesTab";
 import OtpPage from "./components/pages/student/OtpPage";
-import EditCourse from "./components/pages/course/editCourse"
+import EditCourse from "./components/pages/course/editCourse";
+import RejectedInstructors from "./components/pages/instructor/rejectedInstructors";
+import CourseList from "./components/pages/course/courseList";
+import PaymentPage from "./components/pages/payment/stripe-index";
+
 const AppRouter=createBrowserRouter(
     
 [
@@ -30,6 +34,9 @@ const AppRouter=createBrowserRouter(
     },{
         path:"courses",
         element:<CoursesPage/>
+    },{
+        path:"/payment",
+        element:<PaymentPage/>
     }
 
 ]
@@ -98,7 +105,13 @@ const AppRouter=createBrowserRouter(
         path:'instructors/requests',
         element:(<ViewAllInstructorsRequests/>)
         
+    },
+    {
+        path:'instructors/rejected-instructors',
+        element:(<RejectedInstructors/>)
+        
     }
+
 
 
 
