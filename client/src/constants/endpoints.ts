@@ -5,6 +5,10 @@
     STUDENT_LOGIN:"api/auth/student-login",
     STUDENT_REGISTER:"api/auth/student-register",
     OTP_VERIFY:'api/auth/verify-otp',
+    VIEW_COURSE:'api/course/courses',
+    GET_CONFIG:'api/payment/stripe/get-config',
+    PAYMENT:'api/payment/stripe/create-payment-intent',
+    ENROLL:'api/course/enroll-student',
 
     //ADMIN
     GET_ALL_STUDENTS:"/api/students/get-all-students",
