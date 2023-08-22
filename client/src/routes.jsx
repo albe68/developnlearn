@@ -20,6 +20,8 @@ import EditCourse from "./components/pages/course/editCourse";
 import RejectedInstructors from "./components/pages/instructor/rejectedInstructors";
 import CourseList from "./components/pages/course/courseList";
 import PaymentPage from "./components/pages/payment/stripe-index";
+import ProfilePage from "./components/pages/student/profile-page";
+import UserDashboard from "./components/pages/student/user-dashboard";
 
 const AppRouter=createBrowserRouter(
     
@@ -35,8 +37,18 @@ const AppRouter=createBrowserRouter(
         path:"courses",
         element:<CoursesPage/>
     },{
-        path:"/payment",
+        path:"payment",
         element:<PaymentPage/>
+    },{
+        path:"dashboard",
+        element:<UserDashboard/>,
+        children:[
+            {
+            path:"/dashboard/profile",
+            element:<ProfilePage/>,
+
+            }
+        ]
     }
 
 ]
