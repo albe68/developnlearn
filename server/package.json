@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/random-number": "^0.0.1",
     "@types/uniqid": "^5.3.2",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.40.0",
@@ -31,6 +32,9 @@
     "nodemailer": "^6.9.4",
     "random": "^4.1.0",
     "random-id": "^1.0.4",
+    "random-number": "^0.0.9",
+    "razorpay": "^2.9.2",
+    "stripe": "^12.18.0",
     "typescript": "^5.1.6",
     "uniqid": "^5.4.0"
   },
