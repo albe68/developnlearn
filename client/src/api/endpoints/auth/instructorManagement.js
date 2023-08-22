@@ -1,6 +1,7 @@
 import {getAllInstructorsService,
     acceptInstructorRequestService,
-    rejectInstructorRequestService} from '../../services/instructorManageService.js'
+    rejectInstructorRequestService,
+    rejectedInstructorsService} from '../../services/instructorManageService.js'
 
 export const getAllInstructors= ()=>{
     return getAllInstructorsService('/api/instructors/get-all-instructors');
@@ -17,4 +18,7 @@ export const rejectInstructorRequest=(instructorId)=>{
 export const getInstructorsRequests=()=>{
 
     return getAllInstructorsService('/api/instructors/instructor-requests'); 
+}
+export const rejectedInstructors=()=>{
+    return rejectedInstructorsService('/api/instructors/get-all-rejected-instructors')
 }
