@@ -12,7 +12,9 @@ export interface StudentInterface{
     password:string,
     isGoogleUser:boolean,
     profileUrl:string,
-    isBlocked:boolean
+    isBlocked:boolean,
+    isVerified:boolean,   
+
 
 }
 export interface StudentUpdateInfo{
@@ -24,5 +26,6 @@ export interface StudentUpdateInfo{
         name:string,
         key?:string,
         url?:string
-    }
+    },
+
 }
