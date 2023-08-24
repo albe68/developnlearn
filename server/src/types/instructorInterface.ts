@@ -10,7 +10,8 @@ export interface InstructorInterface{
     skills:string,
     about:string,
     certificates:Certificate[],
- 
+    dateRequested:Date
+    
 
 }
 export interface Certificate{
@@ -23,5 +24,6 @@ export interface SavedInstructorInterface extends InstructorInterface{
     isVerified:boolean,
     dateJoined:Date;
     coursesCreated:Array<string>,
+
 }
 
