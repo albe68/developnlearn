@@ -16,5 +16,6 @@ export interface StudentRegisterInterface{
         name?:string;
         url?:string;
     },
-    isGoogleUser:boolean    
+    isGoogleUser:boolean,
+    isVerified:boolean ,   
 }
