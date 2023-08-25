@@ -6,7 +6,7 @@ export default function HomeCards() {
 <div className="flex flex-wrap justify-center">
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
         <a href="#">
-            <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+            <img className="rounded-t-lg" src="" alt="" />
         </a>
         <div className="p-5">
             <a href="#">
@@ -19,7 +19,7 @@ export default function HomeCards() {
 
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
         <a href="#">
-            <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+            <img className="rounded-t-lg" src="" alt="" />
         </a>
         <div className="p-5">
             <a href="#">
@@ -32,7 +32,7 @@ export default function HomeCards() {
 
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
         <a href="#">
-            <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+            <img className="rounded-t-lg" src="" alt="" />
         </a>
         <div className="p-5">
             <a href="#">
