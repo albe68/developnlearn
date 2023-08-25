@@ -23,6 +23,7 @@ import PaymentPage from "./components/pages/payment/stripe-index";
 import ProfilePage from "./components/pages/student/profile-page";
 import UserDashboard from "./components/pages/student/user-dashboard";
 import Razorpay_button from "./components/pages/payment/razorPay-checkout";
+import IndividualCourse from "./components/pages/course/viewCourse";
 const AppRouter=createBrowserRouter(
     
 [
@@ -52,6 +53,9 @@ const AppRouter=createBrowserRouter(
     },{
         path:"rzp",
         element:<Razorpay_button/>
+    },{
+        path:"/course",
+        element:<IndividualCourse/>
     }
 
 ]
