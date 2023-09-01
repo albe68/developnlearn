@@ -4,11 +4,11 @@ interface IOtp{
     otp?:number;
 }
 
-export const otpSchema=new Schema({
+export const otpSchema=new Schema <IOtp>({
     otp:{
-        type:Number,
+       type: Number
     }
 });
 
-const Otp=model("Otps",otpSchema,"otp");
+const Otp=model<IOtp>("Otp",otpSchema,"otps");
 export default Otp;
