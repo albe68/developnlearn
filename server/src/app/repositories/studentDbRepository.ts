@@ -1,6 +1,6 @@
 import { StudentRepositoryMongoDB } from '../../frameworks/database/mongoDB/repositories/studentRepoMongoDB';
 import { StudentRegisterInterface } from '@src/types/studentRegisterInterface';
-// import { studentUpdateInfo } from '@src/types/studentInterface';
+import { StudentUpdateInfo } from '@src/types/studentInterface';
 
 export const studentDbRepository=(
     repository: ReturnType <StudentRepositoryMongoDB>
@@ -19,13 +19,21 @@ export const studentDbRepository=(
 
     const unBlockStudent=async (id:string)=> await repository.unBlockStudent(id)
     
+    const viewProfile=async(id:string)=> await repository.viewProfile(id);
+
+    const editProfile=async(id:string,edit_data:StudentUpdateInfo)=>await repository.editProfile(id,edit_data);
+
+    const getEnrolledStudents=async(studentId:string)=> await repository.getEnrolledStudents(studentId);
     return {
         addStudent,
         getStudentByEmail,
         getAllStudents,
         getStudent,
         blockStudent,
-        unBlockStudent
+        unBlockStudent,
+        viewProfile,
+        editProfile,
+        getEnrolledStudents
         
     }
 }

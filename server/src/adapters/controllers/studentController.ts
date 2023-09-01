@@ -4,9 +4,12 @@ import { AuthServiceInterface } from "@src/app/services/authServiceInterface"
 import { AuthService } from "@src/frameworks/services/authService"
 import asyncHandler from "express-async-handler"
 import { Request,Response } from "express"
-import {getAllStudentsU,unBlockStudentU} from '../../app/useCases/management/studentManagement'
-import {blockStudentU} from '../../app/useCases/management/studentManagement'
+import { getAllStudentsU,unBlockStudentU,
+    viewProfileU,editProfileU,
+    getEnrolledStudentsU } from '../../app/useCases/management/studentManagement';
 
+import {blockStudentU} from '../../app/useCases/management/studentManagement';
+import { StudentUpdateInfo } from '@src/types/studentInterface'
 const studentController=(
     authServiceInterface:AuthServiceInterface,
     authServiceImpl:AuthService,
@@ -42,7 +45,6 @@ const studentController=(
 
     const unBlockStudent=asyncHandler (async(req:Request,res:Response)=>{
         const studentId:string=req.params.studentId;
-        console.log(studentId,"requested Id")
         await unBlockStudentU(studentId,dbRepositoryStudent);
         res.status(200).json({
             status:"success",
@@ -51,12 +53,53 @@ const studentController=(
         })
     })
 
+    const viewProfile=asyncHandler(async(req,res)=>{
+        const studentId:string=req.params.studentId;
+       const student_detail= await viewProfileU(studentId,dbRepositoryStudent);
+       res.status(200).json({
+        status:"success",
+        message:"student profile sucessfully retrivied",
+        data:student_detail,
+       })
+
+
+    });
+
+    const editProfile=asyncHandler(async(req,res)=>{
+        const studentId:string=req.params.studentId;
+        const edit_data:StudentUpdateInfo=req.body;
+        await editProfileU(studentId,edit_data,dbRepositoryStudent);
+        res.status(200).json({
+            status:"success",
+            message:"successfull updated profile",
+            data:null
+        });
+    });
+
+    const enrolledStudents=asyncHandler(async(req,res)=>{
+        const studentId:string=req.params.studentId;
+
+       const enrolledStudents= await getEnrolledStudentsU(dbRepositoryStudent,studentId);
+        res.status(200).json({
+            status:"success",
+            message:"successfully retrived students",
+            data:enrolledStudents
+        });
+    
+
+    });
+
     return {
         getAllStudents,
         blockStudent,
-        unBlockStudent
-    }
-}
+        unBlockStudent,
+        viewProfile,
+        editProfile,
+        enrolledStudents,
+
+    };
+
+};
 
 export default studentController;
 
