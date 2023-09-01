@@ -6,7 +6,9 @@ import { Request,Response } from "express";
 import asyncHandler from "express-async-handler";
 import {getAllInstructorsU,acceptInstructorRequestU,
         declineInstructorRequestU,
-        getInstructorRequestsU} from '../../app/useCases/management/instructorManagement'
+        getInstructorRequestsU,
+        getAllRejectedInstructorsU
+    } from '../../app/useCases/management/instructorManagement'
 import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
 const instructorController=(
@@ -56,14 +58,25 @@ const instructorController=(
     })
 
     const getInstructorRequests=asyncHandler(async(req:Request,res:Response)=>{
-     var instructors=   await getInstructorRequestsU(dbRepositoryInstructor);
+     const instructors=await getInstructorRequestsU(dbRepositoryInstructor);
         res.status(200).json({
             status:"success",
             message:"All Instructor Requests retrived successfully",
             data:instructors
 
         })
-    })
+    });
+
+    const getAllRejectedInstructors=asyncHandler(async(req:Request,res:Response)=>{
+        const rejectedInstructors=await getAllRejectedInstructorsU(dbRepositoryInstructor);
+        console.log(rejectedInstructors,"consoled")
+        res.status(200).json({
+            status:"success",
+            message:"All Rejected Instructors retrived successfully",
+            data:rejectedInstructors
+        });
+        
+    });
 
 
 
@@ -74,7 +87,8 @@ const instructorController=(
         getAllInstructors,
         acceptInstructorRequest,
         declineInstructorRequest,
-        getInstructorRequests
+        getInstructorRequests,
+        getAllRejectedInstructors
     }
 }
 export default instructorController;

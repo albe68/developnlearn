@@ -1,20 +1,23 @@
-import axios from "axios"
-const baseURL = 'http://localhost:5000/';
+// import axios from "axios"
+import api from "../middlewares/interceptors";
 
-const axiosInstance=axios.create({baseURL})
 
-axiosInstance.interceptors.response.use(
-    (response)=>{
-        return response;
-    },
-    (error)=>{
-        return Promise.reject(error);
-    }
-)
+// const baseURL = 'http://localhost:5000/';
+
+// const axiosInstance=axios.create({baseURL})
+
+// axiosInstance.interceptors.response.use(
+//     (response)=>{
+//         return response;
+//     },
+//     (error)=>{
+//         return Promise.reject(error);
+//     }
+// )
 
 export const getAllInstructorsService=async(endpoint)=>{
     try{
-        const response=await axiosInstance.get(`${endpoint}`)
+        const response=await api.get(`${endpoint}`)
         return response.data;
     }
     catch(error){
@@ -24,7 +27,7 @@ export const getAllInstructorsService=async(endpoint)=>{
 
 export const acceptInstructorRequestService=async(endpoint,instructorId)=>{
     try{
-        await axiosInstance.patch(`${endpoint}${instructorId}`)
+        await api.patch(`${endpoint}${instructorId}`)
     }
     catch(err){
         console.log(err)
@@ -34,7 +37,17 @@ export const acceptInstructorRequestService=async(endpoint,instructorId)=>{
 
 export const rejectInstructorRequestService=async(endpoint,instructorId)=>{
     try{
-        await axiosInstance.patch(`${endpoint}${instructorId}`)
+        await api.patch(`${endpoint}${instructorId}`)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+export const rejectedInstructorsService=async(endpoint)=>{
+    try{
+      const response=  await api.get(`${endpoint}`)
+        return response.data
     }
     catch(err){
         console.log(err)

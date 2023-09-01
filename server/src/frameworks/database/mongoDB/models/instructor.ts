@@ -80,6 +80,9 @@ const instructorSchema= new Schema({
         ref:'Courses'}
     ],isRejected:{
         type:Boolean
+    },
+    dateRequested:{
+        type:Date
     }
 
 

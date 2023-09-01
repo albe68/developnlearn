@@ -1,5 +1,5 @@
 import Instructor from '../../frameworks/database/mongoDB/models/instructor';
-import {InstructorRepositoryMongoDB} from '../../frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB'
+import { InstructorRepositoryMongoDB } from '../../frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB'
 import { InstructorInterface, SavedInstructorInterface } from './../../types/instructorInterface'
 
 export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryMongoDB>)=>{
@@ -16,7 +16,7 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
 
     const getInstructorRequests=async()=> await repository.getInstructorRequests();
 
-
+    const getAllRejectedInstructors=async()=> await repository.getAllRejectedInstructors();
   
     return{
         addInstructor,
@@ -24,7 +24,9 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
         getAllInstructors,
         acceptInstructorRequest,
         declineInstructorRequest,
-        getInstructorRequests
+        getInstructorRequests,
+        getAllRejectedInstructors
+
         
     }
 }

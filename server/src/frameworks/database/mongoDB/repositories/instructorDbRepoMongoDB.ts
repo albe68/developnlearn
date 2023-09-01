@@ -4,6 +4,7 @@ import{ InstructorInterface,SavedInstructorInterface} from '../../../../types/in
 export const instructorDbRepoMongoDB =()=>{
    
         const addInstructor=async (instructor:InstructorInterface)=>{
+            console.log(instructor,"console init")
             return await Instructor.create(instructor);
         
         }
@@ -29,14 +30,18 @@ export const instructorDbRepoMongoDB =()=>{
         const instructors= await Instructor.find({isVerified:false,isRejected:false});
         return instructors;
         }
-  
+        const getAllRejectedInstructors=async()=>{
+            const rejected=await Instructor.find({isRejected:true});
+            return rejected;
+        }
     return {
         addInstructor,
         getInstructorByEmail,
         getAllInstructors,
         acceptInstructorRequestMongo,
         declineInstructorRequestMongo,
-        getInstructorRequests
+        getInstructorRequests,
+        getAllRejectedInstructors
     
     };
 };

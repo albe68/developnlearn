@@ -43,3 +43,8 @@ export const getInstructorRequestsU=async(instructorRepository:ReturnType<Instru
   const instructors= instructorRepository.getInstructorRequests()
   return instructors;
 }
+
+export const getAllRejectedInstructorsU=async(instructorRepository:ReturnType<InstructorDbInterface>)=>{
+  const rejectedInstructors=await instructorRepository.getAllRejectedInstructors();
+  return rejectedInstructors;
+}

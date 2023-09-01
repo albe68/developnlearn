@@ -22,6 +22,7 @@ const instructorRouter=()=>{
     router.patch('/accept-instructor-request/:instructorId',controller.acceptInstructorRequest);
     router.patch('/decline-instructor-request/:instructorId',controller.declineInstructorRequest);
     router.get('/instructor-requests',controller.getInstructorRequests);
+    router.get('/get-all-rejected-instructors',controller.getAllRejectedInstructors)
     return router;
 
 }
