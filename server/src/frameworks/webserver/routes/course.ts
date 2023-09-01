@@ -7,7 +7,7 @@ import { uploadSingleImage,uploadMultipleVideos   } from '../middlewares/cloudin
 import { paymentInterface } from '../../../app/repositories/paymentDbRepository';
 import { paymentRepoMongoDb } from '../../../frameworks/database/mongoDB/repositories/paymentRepoMongoDb';
 import jwtAuthMiddleware from '../middlewares/userAuth';
-
+import  {studentAuthorization}  from '../middlewares/authorize';
 const courseRouter=()=>{
     const router=express.Router();
     const controller=courseController(
