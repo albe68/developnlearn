@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 const navigation = [
     { name: 'Home', href: '#', current: true },
-    { name: 'Courses', href: '#', current: false },
+    { name: 'Courses', href: '/courses', current: false },
     { name: 'Alumini', href: '#', current: false },
     { name: 'Resources', href: '#', current: false },
   ]
