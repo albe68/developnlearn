@@ -1,4 +1,4 @@
-import { CourseDbRepositoryInterface, courseDbRepository } from "@src/app/repositories/courseDbRepository";
+import { CourseDbRepositoryInterface } from "@src/app/repositories/courseDbRepository";
 import { AddCourseDetailsInterface } from "@src/types/courseInterface";
 import { uploadSingleImage } from "@src/frameworks/webserver/middlewares/cloudinary";
 export const AddCourse=async(

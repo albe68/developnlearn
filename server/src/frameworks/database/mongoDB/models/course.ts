@@ -34,6 +34,22 @@ const courseSchema=new Schema({
         type:Number,
         required:true
 
+    },
+    isDeleted:{
+        type:Boolean
+    },
+    studentsEnrolled:
+        [
+           { type:mongoose.Schema.Types.ObjectId,
+            ref:'students'
+        }
+        ]
+    ,
+    completionStatus:{
+        type:Number,
+        min:0,
+        max:100,
+        default:0
     }
 })
 
