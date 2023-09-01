@@ -5,5 +5,20 @@ export interface  AddCourseDetailsInterface{
     tags:string[]|string,
     description:string,
     requirements:string,
-    price:number
-}
+    price:string
+};
+//there is a doubt between studentsEnrolled and coursesEnrolled
+export interface CourseInterface extends AddCourseDetailsInterface{
+    studentEnrolled:Array<string>,
+    thumbnailUrl:string,
+
+};
+export interface SavedCourseDetailsInterface{
+    title:string,
+    duration:number,
+    level:string,
+    tags:string[]|string,
+    description:string,
+    requirements:string,
+    price:string
+};
