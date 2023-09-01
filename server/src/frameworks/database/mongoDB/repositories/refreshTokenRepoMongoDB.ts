@@ -18,8 +18,7 @@ export const refreshTokenDbRepositoryMongoDB=()=>{
 }
 
 const findRefreshToken= async (refreshToken:string)=>{
-    const convertedToken= refreshToken.split(' ')[1]
-    const token= await RefreshToken.findOne({token:convertedToken});
+    const token= await RefreshToken.findOne({token:refreshToken});
     return token;
 }
 
