@@ -5,6 +5,6 @@ This project is built using MongoDB,Express.js,React.js,Node.js,TypeScript
 # Getting Started
 ```
 function test() {
-  console.log("This code will have a copy button to the right of it");
+  console.log("This code will have a copy button to the right of it")
 }
 ```
