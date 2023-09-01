@@ -12,3 +12,5 @@ export const allCourses=()=>{
 export const editCourse=(editData)=>{
     return editCourseService(END_POINTS.EDIT_COURSE,editData)
 }
+
+

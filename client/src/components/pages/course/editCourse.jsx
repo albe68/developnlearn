@@ -2,16 +2,31 @@ import React from 'react'
 import { Form,Formik,Field,ErrorMessage } from 'formik'
 import { editCourseValidationSchema } from '../../../validations/course/editCourseValidationSchema';
 import { editCourse } from '../../../api/endpoints/auth/courseManagement';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import {IndividualCourseSingle} from '../../../api/endpoints/course/course'
+
 export default  function EditCourse() {
+  const [courses,setCourses]=useState([]);
+  const fetchCourses=async()=>{
+   try{ 
+    const response=await IndividualCourseSingle();
+    setCourses(response?.data);
+
+  }
+    catch(err){
+      console.log(err)
+    }
+  }
+  useEffect(()=>{fetchCourses()},[])
+ 
+  console.log(courses.data.title)
+// const{ title }=courses.data
 
  async function handleSubmit(editData){
     await editCourse(editData);
-
-
-}
+   };
   const editCourseIntialValues={
-    title:"svelte kit",
+    title:title,
     duration:"10",
     level:"beginner",
     tags:"advance",
