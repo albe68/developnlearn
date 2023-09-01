@@ -16,7 +16,7 @@ const decodedTokenAndReturnExpireDate=(token:string)=>service.decodedTokenAndRet
 
 const decodeToken=(token:string)=> service.decodeToken(token);
 
-// const otpGenerate=()=> service.otpGenerate();
+const otpGenerate=()=> service.otpGenerate();
 
 
 
@@ -29,7 +29,7 @@ return {
     generateRefreshToken,
     decodedTokenAndReturnExpireDate,
     decodeToken,
-    // otpGenerate
+    otpGenerate
 
     }
 

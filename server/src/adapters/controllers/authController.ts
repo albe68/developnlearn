@@ -17,6 +17,8 @@ import { InstructorDbInterface } from '@src/app/repositories/instructorDbReposit
 import { InstructorRepositoryMongoDB } from '@src/frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB';
 import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
+import { OtpDbRepository } from '@src/app/repositories/otpDbRepository';
+import { OtpDbRepoMongoDb } from '@src/frameworks/database/mongoDB/repositories/otpRepoMongoDB';
 const authController=(
     AuthServiceInterface:AuthServiceInterface,
     authServiceImpl:AuthService,
@@ -29,7 +31,10 @@ const authController=(
     adminDbRepository:AdminDbInterface,
     adminDbRepositoryImpl:AdminRepositoryMongoDb,
     emailServiceInterface:SendEmailServiceInterface,
-    emailServiceImpl:SendEmailService
+    emailServiceImpl:SendEmailService,
+    otpDbRepository:OtpDbRepository,
+    otpDbRepositoryImpl:OtpDbRepoMongoDb,
+
     )=>{
 
     const dbRepositoryUser =studentDbRepository(studentDbRepositoryImpl());
@@ -41,6 +46,7 @@ const authController=(
     const dbRepositoryAdmin=adminDbRepository(adminDbRepositoryImpl());
     
     const dbRepositoryInstructor=instructorDbRepository(instructorDbRepositoryImpl());
+    const dbRepositoryOtp=otpDbRepository(otpDbRepositoryImpl());
     //Student
     const registerStudent=asyncHandler(async(req:Request,res:Response)=>{
         const student:StudentRegisterInterface = req.body;   
@@ -60,21 +66,20 @@ const authController=(
 
     const loginStudent=asyncHandler(async(req:Request,res:Response)=>{
         const {email,password}:{email:string;password:string}=req.body;
-        
         const {accessToken,refreshToken}= await studentLogin(
             email,
             password,
             dbRepositoryUser,
             dbRepositoryRefreshToken,
             authService
-        )
-
+        );
+            
         res.status(200).json({
             status:'success',
             message:'User logged In successfully',
             accessToken,
             refreshToken
-        })
+        });
     })
 
     const logoutStudent=asyncHandler((req:Request,res:Response)=>{
@@ -138,8 +143,15 @@ const authController=(
 
     })
 
-    const otp=asyncHandler(async(req:Request,res:Response)=>{
-        const {number}:{number:number}=req.body;
+    const verifyEmail=asyncHandler(async(req:Request,res:Response)=>{
+        const { number }=req.body;
+        
+        console.log(number,"prompted")
+        const { uid }=req.params;
+        const response=await emailVerify(
+            number,
+            dbRepositoryOtp,
+            authService);
         
     })
 
@@ -150,7 +162,7 @@ const authController=(
         registerInstructor,
         loginInstructor,
         loginAdmin,
-        otp
+        verifyEmail
     };
 }
 

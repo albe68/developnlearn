@@ -23,13 +23,14 @@ const StudentLoginPage = () => {
   };
 
   const handleFormSubmit =async(e,student) => {
-    try{e.preventDefault();
+    try{
+      e.preventDefault();
 
 
     const response=await loginStudent(email,password);
     console.log(response,"reponse is it");
     const {accessToken,refreshToken}=response.data;
-
+      console.log(accessToken,refreshToken,"must")
     dispatch(setToken({accessToken,refreshToken,userType:"student"}));
     response.data.status=== "success" && navigate("/");
     }catch(error){
