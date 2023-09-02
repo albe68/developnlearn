@@ -3,14 +3,17 @@ import asyncHandler from "express-async-handler";
 import { CourseDbRepositoryInterface } from "@src/app/repositories/courseDbRepository";
 import { CourseRepositoryMongoDbInterface } from "@src/frameworks/database/mongoDB/repositories/courseDbRepoMongoDB";
 import { AddCourse, allCoursesU } from "../../app/useCases/course/addCourse";
-import { enrolledStudentsU } from "../../app/useCases/course/enrollCourse";
+import {
+  enrolledStudentsU,
+  filterCoursesU,
+} from "../../app/useCases/course/enrollCourse";
 import { AddCourseDetailsInterface } from "@src/types/courseInterface";
 import {
   deleteCourseU,
   getIndividualCourseU,
   paymentDetailsU,
 } from "../../app/useCases/course/courseDetails";
-import { editCourseU } from "../../app/useCases/course/courseDetails";
+import { editCourseU,coursesTagsU } from "../../app/useCases/course/courseDetails";
 import { enrollStudentU } from "../../app/useCases/course/enrollCourse";
 import { PaymentInterface } from "@src/app/repositories/paymentDbRepository";
 import { PaymentImplInterface } from "@src/frameworks/database/mongoDB/repositories/paymentRepoMongoDb";
@@ -125,6 +128,21 @@ const courseController = (
       data: enrolledStudents,
     });
   });
+
+  const filterCourses = asyncHandler(async (req, res) => {
+    const keyword: any = req.query.filter; //change the type to query's type
+    console.log(keyword);
+    await filterCoursesU(dbRepositoryCourse, keyword);
+  });
+
+  const coursesTags=asyncHandler(async(req,res)=>{
+   const tags= await coursesTagsU(dbRepositoryCourse);
+   res.status(200).json({
+    status:"success",
+    message:"tags retrieved successfully",
+    data:tags
+   });
+  })
   return {
     addCourse,
     allCourses,
@@ -134,6 +152,8 @@ const courseController = (
     enrollStudent,
     paymentDetails,
     enrolledStudents,
+    filterCourses,
+    coursesTags
   };
 };
 

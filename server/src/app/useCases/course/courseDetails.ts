@@ -32,3 +32,11 @@ export const paymentDetailsU=async(
     return courseDbRepository.viewPaymentDetails();
 }
 
+export const coursesTagsU=async(
+    courseDbRepository:ReturnType<CourseDbRepositoryInterface>
+
+)=>{
+    return courseDbRepository.coursesTags();
+
+}
+

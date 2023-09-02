@@ -62,46 +62,56 @@ export const courseRepositoryMongoDb = () => {
         $unwind: "$studentsEnrolled",
       },
       {
-        $lookup:{
-            from:'students',
-            localField:'studentsEnrolled',
-            foreignField:'_id',
-            as:'studentDetails',
-
-        }
-      },{
-        $project:{
-            student:{ $arrayElemAt:['$studentDetails',0]
-                  },
-                courseName:'$title'
-            }
-        }
-      ,{
-        $group:{
-            _id:'$student._id',
-            course:{$first:'$courseName'},
-            firstName:{$first:'$student.firstName'},
-            lastName:{$first:'$student.lastName'},
-            email:{$first:'$student.email'},
-            mobile:{$first:'$student.mobile'},
-            isBlocked:{$first:'$student.isBlocked'},
-
-        }
-      }
+        $lookup: {
+          from: "students",
+          localField: "studentsEnrolled",
+          foreignField: "_id",
+          as: "studentDetails",
+        },
+      },
+      {
+        $project: {
+          student: { $arrayElemAt: ["$studentDetails", 0] },
+          courseName: "$title",
+        },
+      },
+      {
+        $group: {
+          _id: "$student._id",
+          course: { $first: "$courseName" },
+          firstName: { $first: "$student.firstName" },
+          lastName: { $first: "$student.lastName" },
+          email: { $first: "$student.email" },
+          mobile: { $first: "$student.mobile" },
+          isBlocked: { $first: "$student.isBlocked" },
+        },
+      },
     ]);
-   return  enrolled_students;
+    return enrolled_students;
   };
 
-  const getCoursesByStudent=async()=>{
-    const courses= await Course.find({
-      studentsEnrolled:{
-        $in:[new mongoose.Types.ObjectId('64c8b0af3521dca7afbfdd0e')]
-      }
-    })
+  const getCoursesByStudent = async () => {
+    const courses = await Course.find({
+      studentsEnrolled: {
+        $in: [new mongoose.Types.ObjectId("64c8b0af3521dca7afbfdd0e")],
+      },
+    });
     return courses;
-  }
-  const viewPaymentDetails=async()=>{
-    const payment_details = await  Payment.find({})
+  };
+  const viewPaymentDetails = async () => {
+    const payment_details = await Payment.find({});
+  };
+
+  const filterCourses = async (keyword: string) => {
+    let query = [keyword];
+    const result = await Course.find({ tags: { $all: query } });
+    console.log(result,'mongodb')
+    return result;
+  };
+
+  const coursesTags=async()=>{
+    const coursesTags=await Course.find({},'tags')
+    return coursesTags;
   }
   return {
     addCourse,
@@ -112,7 +122,9 @@ export const courseRepositoryMongoDb = () => {
     enrollStudent,
     viewPaymentDetails,
     enrolledStudents,
-    getCoursesByStudent
+    getCoursesByStudent,
+    filterCourses,
+    coursesTags
   };
 };
 

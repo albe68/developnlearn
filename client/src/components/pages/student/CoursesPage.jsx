@@ -7,13 +7,24 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { viewCourse } from "../../../api/endpoints/course/course";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate,Link } from "react-router-dom";
+import { filterProducts } from "../../../api/endpoints/course/course";
 const CoursesPage = () => {
   const navigate = useNavigate();
-
-  const navigateHandle = () => {
-  navigate("/course");
+  const [isSelected,setSelected]=useState(false);
+  const handleFilterCall=(e)=>{
+    const isSelected=e.target.checked;
+    const filterQuery=e.target.value;
+    console.log(e.target.value,'check')
+    setSelected(isSelected);
+    if(isSelected){
+      filterProducts(filterQuery)
+    }
+  }
+ 
+  const navigateHandle = (courseId) => {
+  console.log(courseId)
+  navigate(`/course/${courseId}`);
 
   };
   const [courses, setCourses] = useState([]); //is,the intial state of courses cards, lazy loading?
@@ -91,8 +102,9 @@ const CoursesPage = () => {
                 <input
                   id="react-checkbox"
                   type="checkbox"
-                  value=""
+                  value="nodejs"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  onChange={handleFilterCall}
                 />
                 <label
                   htmlFor="react-checkbox"
@@ -141,8 +153,9 @@ const CoursesPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {
             courses.map((course, index) => (
+              <Link to={course._id} key={index}>
               <div key={index} className="w-full p-4">
-                <Card className="h-48" onClick={() => navigateHandle()}>
+                <Card className="h-48" >
                   <CardBody className="flex items-center ">
                     <img
                       src={course.thumbnail}
@@ -165,6 +178,7 @@ const CoursesPage = () => {
                   </CardBody>
                 </Card>
               </div>
+              </Link>
             ))
             // Array.from({ length: 9 }).map((_, index) => (
             //             <div key={index} className="w-full p-4">

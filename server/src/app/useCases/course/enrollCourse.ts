@@ -1,4 +1,7 @@
-import { CourseDbRepositoryInterface, courseDbRepository } from "../../repositories/courseDbRepository";
+import {
+  CourseDbRepositoryInterface,
+  courseDbRepository,
+} from "../../repositories/courseDbRepository";
 import { PaymentInterface } from "../../repositories/paymentDbRepository";
 import AppError from "../../../utils/appError";
 
@@ -9,8 +12,8 @@ export const enrollStudentU = async (
   paymentDbRepository: ReturnType<PaymentInterface>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
-  const {razorpay_payment_id,
-    razorpay_order_id,razorpay_signature}=paymentInfo
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+    paymentInfo;
   const studentId: string = "64c8b0af3521dca7afbfdd0e";
   if (!courseId) {
     throw new AppError("please provide course details", 404);
@@ -18,31 +21,32 @@ export const enrollStudentU = async (
   if (!studentId) {
     throw new AppError("please provide student details", 404);
   }
-    const course=await courseDbRepository.getCourseById(courseId);
-    //check if course is paid or not
-    const payment={
-      courseId:courseId,
-      studentId:studentId,
-      paymentId:razorpay_payment_id,
-      amount:paymentInfo.amount/100,
-      currency:paymentInfo.currency,
-      payment_method:paymentInfo.payment_method
+  const course = await courseDbRepository.getCourseById(courseId);
+  //check if course is paid or not
+  const payment = {
+    courseId: courseId,
+    studentId: studentId,
+    paymentId: razorpay_payment_id,
+    amount: paymentInfo.amount / 100,
+    currency: paymentInfo.currency,
+    payment_method: paymentInfo.payment_method,
+  };
 
-    };
-    
-    await Promise.all([
-      courseDbRepository.enrollStudent(courseId,studentId),
-      paymentDbRepository.savePayment(payment)
-    ]);
-    
-    };
+  await Promise.all([
+    courseDbRepository.enrollStudent(courseId, studentId),
+    paymentDbRepository.savePayment(payment),
+  ]);
+};
 
-
-    export const enrolledStudentsU=async(
+export const enrolledStudentsU = async (
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
+) => {
+  return courseDbRepository.getEnrolledStudentss();
+};
 
-    )=>{
-      return courseDbRepository.getEnrolledStudentss();
-    }
-
-   
+export const filterCoursesU = async (
+  courseDbRepository: ReturnType<CourseDbRepositoryInterface>,
+  keyword:string
+) => {
+  return courseDbRepository.filterCourses(keyword);
+};

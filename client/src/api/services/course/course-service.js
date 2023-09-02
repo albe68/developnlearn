@@ -44,3 +44,18 @@ export const IndividualCourseService = async (
     console.error(error);
   }
 };
+
+export const filterService = async (
+  endpoint,
+  filterQuery,
+  
+) => {
+  try {
+    const filteredCourses = await api.get(`${endpoint}?filter=${filterQuery}`);
+    console.log("s", filteredCourses);
+    return filteredCourses;
+  } catch (error) {
+    console.error(error);
+  }
+};
+

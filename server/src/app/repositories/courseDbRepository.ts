@@ -25,6 +25,12 @@ export const courseDbRepository=(
     const getEnrolledStudentss=async()=> await repository.enrolledStudents();
     
     const  getCoursesByStudent=async()=> await repository.getCoursesByStudent();
+
+    const filterCourses=async(keyword:string)=> await repository.filterCourses(keyword);
+
+    const coursesTags=async()=> await repository.coursesTags();
+
+
     return{
         addCourse,
         allCourses,
@@ -35,7 +41,9 @@ export const courseDbRepository=(
         enrollStudent,
         viewPaymentDetails,
         getEnrolledStudentss,
-        getCoursesByStudent
+        getCoursesByStudent,
+        filterCourses,
+        coursesTags
     };
 
     
