@@ -9,8 +9,8 @@ export const allCourses=()=>{
     return allCoursesService(END_POINTS.ALL_COURSES)
 }
 
-export const editCourse=(editData)=>{
-    return editCourseService(END_POINTS.EDIT_COURSE,editData)
+export const editCourse=(editData,courseId)=>{
+    return editCourseService(END_POINTS.EDIT_COURSE,editData,courseId)
 }
 
 
