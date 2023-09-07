@@ -1,7 +1,7 @@
 import END_POINTS from '../../../constants/endpoints';
 import { getConfigService,createStripePaymentService,
       razorPaymentService,captureRZpService,
-      enrollStudentService }
+      enrollStudentService,getPaymentDetailsService }
  from '../../services/payment/paymentConfigService' 
 
 export const paymentConfigService=()=>{
@@ -12,9 +12,8 @@ export const  createStripePayment=(courseId)=>{
     return createStripePaymentService(END_POINTS.PAYMENT,courseId)
 }
 
-export const razorPayment=()=>{
-  console.log("ch")
-  const response= razorPaymentService(END_POINTS.RAZOR,30);
+export const razorPayment=(price)=>{
+  const response= razorPaymentService(END_POINTS.RAZOR,price);
   return response;
 
 };
@@ -24,6 +23,10 @@ export const capture_RZP=()=>{
 
 }
 
-export const enrollStudent=(courseId,paymentInfo)=>{
-  return enrollStudentService(END_POINTS.ENROLL,courseId,paymentInfo);
+export const enrollStudent=(course,paymentInfo)=>{
+  return enrollStudentService(END_POINTS.ENROLL,course,paymentInfo);
+}
+
+export const getPaymentDetails=()=>{
+  return getPaymentDetailsService(END_POINTS.GET_PAYMENT_DETAILS);
 }
