@@ -1,4 +1,4 @@
-import {getAllStudentsService,blockStudentService,unBlockStudentService} from '../../services/studentManageService.js';
+import {getAllStudentsService,blockStudentService,unBlockStudentService} from '../../services/student/studentManageService';
 import  END_POINTS from '../../../constants/endpoints'
 
 export const getAllStudents= ()=>{
