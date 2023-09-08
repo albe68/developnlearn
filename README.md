@@ -23,4 +23,8 @@ This project is built using MongoDB,Express.js,React.js,Node.js,TypeScript
  - Redux
  - Tailwind CSS
 
+## API Documentation
+
+https://documenter.getpostman.com/view/25182043/2s946k7Woy
+
  
