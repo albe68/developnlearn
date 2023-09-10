@@ -2,6 +2,7 @@ import { addCourseService,allCoursesService,editCourseService } from "../../serv
 import END_POINTS from "../../../constants/endpoints";
 
 export const addCourse=(courseData)=>{
+    console.log(courseData,'cje')
     return addCourseService(END_POINTS.ADD_COURSE,courseData)
 }
 
