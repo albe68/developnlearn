@@ -30,7 +30,7 @@ import DashHome from "./components/pages/student-dashboard/dash-home";
 import EnrolledStudents from "./components/pages/enrolled-students/enrolledStudents";
 import CouseDetailIndexPage from "./components/pages/course-detail-instructor/course-detail-instructor-index";
 import PaymentDetailIndexPage from "./components/pages/payment-detail/payment-detail-index";
-
+import AddLessonIndex from "./components/pages/add-lesson/add-lesson-index";
 const LazyCourseList = lazy(() =>
   import("./components/pages/course/CoursesPage")
 );
@@ -144,6 +144,10 @@ const AppRouter = createBrowserRouter([
       {
         path: "payment-detail-index",
         element: <PaymentDetailIndexPage />,
+      },
+      {
+        path: "add-lesson/:courseId",
+        element: <AddLessonIndex />,
       },
     ],
   },
