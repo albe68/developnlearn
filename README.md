@@ -7,9 +7,9 @@ Developnlearn is a e-learning platform for developer to upskill in software deve
 *  Discuss tech driven topics around this community.
 *  
 ### Development features
-* App follows `OAuth2` secutity protocol.
-* Clean Code Architecture for application scalablity and maintainiblty.
-* Server and Database security protecting from suspicoius users.
+* App follows `OAuth2` security protocol.
+* `Clean Code Architecture` for application scalablity and maintainiblty.
+* Server and Database security, preventing suspicious activity.
 * Seamless UI/UX using `React.js`.
 
 ### Technologies used -
