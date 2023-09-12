@@ -14,4 +14,5 @@ Tech Stack : `TypeScript` `React.js` `MongoDB` `Express.js` `AWS`
 Tooling : `Git` `es-lint` `npm` 
 
 Libraries and Frameworks : `Tailwind CSS` `bcrypt`  
-  
+
+!  Note - This project is under development stage, for fully fledged application features will be available after production .
