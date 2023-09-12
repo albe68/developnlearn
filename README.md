@@ -5,6 +5,12 @@ Developnlearn is a e-learning platform for developer to upskill in software deve
 *  Seamlessly stream video with playback features.
 *  Communicate with your favourite mentor around the globe.
 *  Discuss tech driven topics around this community.
+*  
+### Development features
+* App follows `OAuth2` secutity protocol.
+* Clean Code Architecture for application scalablity and maintainiblty.
+* Server and Database security protecting from suspicoius users.
+* Seamless UI/UX using `React.js`.
 
 ### Technologies used -
 Cloud Stack : `CloudFront` `CloudWatch` `S3` `Route53` `EC2`
