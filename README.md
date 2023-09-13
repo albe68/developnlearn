@@ -17,7 +17,7 @@ Cloud Stack : `CloudFront` `CloudWatch` `S3` `Route53` `EC2`
 
 Tech Stack : `TypeScript` `React.js` `MongoDB` `Express.js` `AWS`
 
-Tooling : `Git` `es-lint` `npm` 
+Tooling : `Git` `es-lint` `npm` `Postman` `Morgan` 
 
 Libraries and Frameworks : `Tailwind CSS` `bcrypt` `Redux`  
 
