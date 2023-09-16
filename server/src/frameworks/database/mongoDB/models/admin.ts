@@ -8,7 +8,7 @@ const adminSchema= new Schema ({
         type:String,
         
     }
-})
+});
 
-const Admin= model('Admin',adminSchema,'admin');
+const Admin= model("Admin",adminSchema,"admin");
 export default Admin;

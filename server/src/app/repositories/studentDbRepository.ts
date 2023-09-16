@@ -1,11 +1,11 @@
-import { StudentRepositoryMongoDB } from '../../frameworks/database/mongoDB/repositories/studentRepoMongoDB';
-import { StudentRegisterInterface } from '@src/types/studentRegisterInterface';
-import { StudentUpdateInfo } from '@src/types/studentInterface';
-
+import { StudentRepositoryMongoDB } from "../../frameworks/database/mongoDB/repositories/studentRepoMongoDB";
+import { StudentRegisterInterface } from "@src/types/studentRegisterInterface";
+import { StudentUpdateInfo } from "@src/types/studentInterface";
+import {Students} from "@src/entities/student";
 export const studentDbRepository=(
     repository: ReturnType <StudentRepositoryMongoDB>
 )=>{
-    const addStudent=async (student :StudentRegisterInterface)=>
+    const addStudent=async (student :Students)=>
     await  repository.addStudent(student);
 
     const getStudentByEmail =async (email:string)=>
@@ -17,7 +17,7 @@ export const studentDbRepository=(
 
     const blockStudent=async (id:string) => await repository.blockStudent(id);
 
-    const unBlockStudent=async (id:string)=> await repository.unBlockStudent(id)
+    const unBlockStudent=async (id:string)=> await repository.unBlockStudent(id);
     
     const viewProfile=async(id:string)=> await repository.viewProfile(id);
 
@@ -35,8 +35,8 @@ export const studentDbRepository=(
         editProfile,
         getEnrolledStudents
         
-    }
-}
+    };
+};
 
 export type StudentDbInterface= typeof studentDbRepository;  
 

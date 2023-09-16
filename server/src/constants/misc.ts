@@ -1,3 +1,3 @@
 export enum NodeEnvs{
-    Dev='development'
+    Dev="development"
 }

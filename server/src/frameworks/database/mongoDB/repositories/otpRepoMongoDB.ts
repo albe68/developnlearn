@@ -1,6 +1,7 @@
 import Otp from "../models/otp";
+import {IOtp} from "../../../../types/otpInterface"
 export const otpDbRepoMongoDb=()=>{
-    const addOtp=async(data:number)=>{
+    const addOtp=async(data:IOtp)=>{
          await new Otp({ otp: data }).save();
 
     };

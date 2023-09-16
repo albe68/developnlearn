@@ -1,7 +1,7 @@
-import Admin from '../models/admin';
-import { AdminSavedDbInterface } from '../../../../types/adminAuthInterface';
+import Admin from "../models/admin";
+import { AdminSavedDbInterface } from "../../../../types/adminAuthInterface";
 export const adminRepoMongoDb=()=>{
-    const getAdminByEmailMongo=async (email:String)=>{
+    const getAdminByEmailMongo=async (email:string)=>{
       try { 
 
         const admin: AdminSavedDbInterface | null = await Admin.findOne({ email });
@@ -9,17 +9,17 @@ export const adminRepoMongoDb=()=>{
         }
          catch(err){
 
-            console.error('error fetching admin',err);
+            console.error("error fetching admin",err);
             throw err;
          }
 
-    }
+    };
 //solved an ambiquity as adminDBRepository had a same function
 // name as adminRepoMongoDB ie,getAdminByEmail so changed adminRepoMongoDB's getAdminByEmail ---> getAdminByEmailMongo
 
     return{
         getAdminByEmailMongo
     };
-}
+};
 
 export type AdminRepositoryMongoDb = typeof adminRepoMongoDb;

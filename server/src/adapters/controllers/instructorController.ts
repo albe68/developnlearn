@@ -1,14 +1,14 @@
 import { AuthServiceInterface } from "@src/app/services/authServiceInterface";
 import { InstructorRepositoryMongoDB } from "@src/frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB";
 import { AuthService } from "@src/frameworks/services/authService";
-import {InstructorDbInterface} from '@src/app/repositories/instructorDbRepository'
+import {InstructorDbInterface} from "@src/app/repositories/instructorDbRepository";
 import { Request,Response } from "express";
 import asyncHandler from "express-async-handler";
 import {getAllInstructorsU,acceptInstructorRequestU,
         declineInstructorRequestU,
         getInstructorRequestsU,
         getAllRejectedInstructorsU
-    } from '../../app/useCases/management/instructorManagement'
+    } from "../../app/useCases/management/instructorManagement";
 import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 import { SendEmailServiceInterface } from "@src/app/services/sendEmailServiceInterface";
 const instructorController=(
@@ -29,8 +29,8 @@ const instructorController=(
         status:"success",
         message:"Instructors successfully retrived",
         data:instructors
-     })
-    })
+     });
+    });
 
     const acceptInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
         const instructorId:string=req.params.instructorId;
@@ -42,9 +42,9 @@ const instructorController=(
             state:"success",
             message:"Instructor request accepted successfully",
             data:null
-        })
+        });
 
-    })
+    });
 
     const declineInstructorRequest=asyncHandler(async(req:Request,res:Response)=>{
         const instructorId:string=req.params.instructorId;
@@ -53,9 +53,9 @@ const instructorController=(
             status:"success",
             message:"Instructor request declined successfully",
             data:null
-        })
+        });
 
-    })
+    });
 
     const getInstructorRequests=asyncHandler(async(req:Request,res:Response)=>{
      const instructors=await getInstructorRequestsU(dbRepositoryInstructor);
@@ -64,12 +64,12 @@ const instructorController=(
             message:"All Instructor Requests retrived successfully",
             data:instructors
 
-        })
+        });
     });
 
     const getAllRejectedInstructors=asyncHandler(async(req:Request,res:Response)=>{
         const rejectedInstructors=await getAllRejectedInstructorsU(dbRepositoryInstructor);
-        console.log(rejectedInstructors,"consoled")
+        console.log(rejectedInstructors,"consoled");
         res.status(200).json({
             status:"success",
             message:"All Rejected Instructors retrived successfully",
@@ -89,6 +89,6 @@ const instructorController=(
         declineInstructorRequest,
         getInstructorRequests,
         getAllRejectedInstructors
-    }
-}
+    };
+};
 export default instructorController;

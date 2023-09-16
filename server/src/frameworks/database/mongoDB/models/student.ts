@@ -51,10 +51,12 @@ const studentSchema= new Schema <Istudent>({
     },
     blockedReason:{
         type:String,
-        default:''
+        default:""
     }
-})
+});
 
-const Students = model<Istudent>('Students',studentSchema,'students');
+studentSchema.set('timestamps',true)
+
+const Students = model<Istudent>("Students",studentSchema,"students");
 
 export default Students;    

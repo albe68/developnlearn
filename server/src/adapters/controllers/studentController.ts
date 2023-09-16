@@ -1,15 +1,16 @@
-import { StudentDbInterface } from '../../app/repositories/studentDbRepository'
-import { StudentRepositoryMongoDB } from "@src/frameworks/database/mongoDB/repositories/studentRepoMongoDB"
-import { AuthServiceInterface } from "@src/app/services/authServiceInterface"
-import { AuthService } from "@src/frameworks/services/authService"
-import asyncHandler from "express-async-handler"
-import { Request,Response } from "express"
+import { StudentDbInterface } from "../../app/repositories/studentDbRepository";
+import { StudentRepositoryMongoDB } from "@src/frameworks/database/mongoDB/repositories/studentRepoMongoDB";
+import { AuthServiceInterface } from "@src/app/services/authServiceInterface";
+import { AuthService } from "@src/frameworks/services/authService";
+import asyncHandler from "express-async-handler";
+import { Request,Response } from "express";
 import { getAllStudentsU,unBlockStudentU,
     viewProfileU,editProfileU,
-    getEnrolledStudentsU } from '../../app/useCases/management/studentManagement';
+    getEnrolledStudentsU } from "../../app/useCases/management/studentManagement";
 
-import {blockStudentU} from '../../app/useCases/management/studentManagement';
-import { StudentUpdateInfo } from '@src/types/studentInterface'
+import {blockStudentU} from "../../app/useCases/management/studentManagement";
+import { StudentUpdateInfo } from "@src/types/studentInterface";
+import { CustomRequest } from "@src/types/customRequest";
 const studentController=(
     authServiceInterface:AuthServiceInterface,
     authServiceImpl:AuthService,
@@ -22,8 +23,8 @@ const studentController=(
     const getAllStudents=asyncHandler(async(req:Request,res:Response)=>{
         const students=await getAllStudentsU(dbRepositoryStudent);
         res.status(200).json({
-            status:'success',
-            message:'successylly retrieved all students',
+            status:"success",
+            message:"successylly retrieved all students",
             data:students
         });
 
@@ -38,10 +39,10 @@ const studentController=(
             status:"success",
             message:"Student  Successfully blocked",
             data:null
-        })
+        });
         
 
-    })
+    });
 
     const unBlockStudent=asyncHandler (async(req:Request,res:Response)=>{
         const studentId:string=req.params.studentId;
@@ -50,24 +51,26 @@ const studentController=(
             status:"success",
             message:"Student successfully unblocked",
             data:null
-        })
-    })
+        });
+    });
 
-    const viewProfile=asyncHandler(async(req,res)=>{
+    const viewProfile=asyncHandler(async(req:CustomRequest,res)=>{
+        const studentI:string|undefined=req.user?.Id;
         const studentId:string=req.params.studentId;
        const student_detail= await viewProfileU(studentId,dbRepositoryStudent);
        res.status(200).json({
         status:"success",
         message:"student profile sucessfully retrivied",
         data:student_detail,
-       })
+       });
 
 
     });
 
     const editProfile=asyncHandler(async(req,res)=>{
         const studentId:string=req.params.studentId;
-        const edit_data:StudentUpdateInfo=req.body;
+        const edit_data:StudentUpdateInfo=req.body.studentPayload;
+        console.log(edit_data,"payload",studentId);
         await editProfileU(studentId,edit_data,dbRepositoryStudent);
         res.status(200).json({
             status:"success",
@@ -78,11 +81,11 @@ const studentController=(
 
     const enrolledStudents=asyncHandler(async(req,res)=>{
         const studentId:string=req.params.studentId;
-
+        
        const enrolledStudents= await getEnrolledStudentsU(dbRepositoryStudent,studentId);
         res.status(200).json({
             status:"success",
-            message:"successfully retrived students",
+            message:"successfully retrived studentsss",
             data:enrolledStudents
         });
     

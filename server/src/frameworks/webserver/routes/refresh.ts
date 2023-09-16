@@ -13,7 +13,7 @@ const refreshRouter = () => {
     refreshTokenDbRepositoryMongoDB
   );
 
-  router.post("/refresh",controller.refreshToken);
+  router.post("/refresh", controller.refreshToken);
   return router;
 };
 

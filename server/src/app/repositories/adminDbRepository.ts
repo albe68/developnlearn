@@ -1,4 +1,4 @@
-import { AdminRepositoryMongoDb } from '../../frameworks/database/mongoDB/repositories/adminRepoMongoDB';
+import { AdminRepositoryMongoDb } from "../../frameworks/database/mongoDB/repositories/adminRepoMongoDB";
 
 export const adminDbRepository=(
     repository: ReturnType<AdminRepositoryMongoDb>
@@ -10,7 +10,7 @@ export const adminDbRepository=(
       
         return{
             getAdminByEmail
-            }
+            };
              
         
         

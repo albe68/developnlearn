@@ -1,6 +1,6 @@
-import Instructor from '../../frameworks/database/mongoDB/models/instructor';
-import { InstructorRepositoryMongoDB } from '../../frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB'
-import { InstructorInterface, SavedInstructorInterface } from './../../types/instructorInterface'
+import Instructor from "../../frameworks/database/mongoDB/models/instructor";
+import { InstructorRepositoryMongoDB } from "../../frameworks/database/mongoDB/repositories/instructorDbRepoMongoDB";
+import { InstructorInterface, SavedInstructorInterface } from "./../../types/instructorInterface";
 
 export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryMongoDB>)=>{
 
@@ -28,7 +28,7 @@ export const instructorDbRepository=(repository:ReturnType<InstructorRepositoryM
         getAllRejectedInstructors
 
         
-    }
-}
+    };
+};
 
 export type InstructorDbInterface=  typeof instructorDbRepository;

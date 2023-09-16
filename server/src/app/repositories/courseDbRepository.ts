@@ -1,18 +1,18 @@
 import { AddCourseDetailsInterface,SavedCourseDetailsInterface } from "@src/types/courseInterface";
 import {CourseRepositoryMongoDbInterface} from "@src/frameworks/database/mongoDB/repositories/courseDbRepoMongoDB";
+import {AddLessonInterface } from "@src/types/LessonInterface"
 
 export const courseDbRepository=(
     repository:ReturnType<CourseRepositoryMongoDbInterface>
 )=>{
-    const addCourse=async (courseDetails:AddCourseDetailsInterface)=>
-    await repository.addCourse(courseDetails);
+    const addCourse=async (courseDetails:AddCourseDetailsInterface)=>await repository.addCourse(courseDetails);
 
     const allCourses=async()=>await repository.allCourses();
 
     const getIndividualCourse=async(courseId:string)=>await repository.getCourseById(courseId);
 
     const editCourse=async (courseId:string,updateDetails:SavedCourseDetailsInterface)=>
-         await repository.editCourse(courseId,updateDetails);
+    await repository.editCourse(courseId,updateDetails);
 
     const deleteCourse=async (courseId:string)=>await repository.deleteCourse(courseId);
     
@@ -22,7 +22,7 @@ export const courseDbRepository=(
    
     const viewPaymentDetails=async ()=> await repository.viewPaymentDetails();
     
-    const getEnrolledStudentss=async()=> await repository.enrolledStudents();
+    const getEnrolledStudentss=async(studentId:string)=> await repository.enrolledStudents(studentId);
     
     const  getCoursesByStudent=async()=> await repository.getCoursesByStudent();
 
@@ -30,7 +30,12 @@ export const courseDbRepository=(
 
     const coursesTags=async()=> await repository.coursesTags();
 
+    const enrolledCoursesForStudent=async(studentId:string)=> await repository.enrolledCoursesForStudent(studentId);
 
+    const reallocateCourses=async (courseId:string)=>await repository.reallocateCourses(courseId);
+
+    const addLessons=async (lessonDetails:AddLessonInterface,courseId:string)=> await repository.addLesson(lessonDetails,courseId)
+    
     return{
         addCourse,
         allCourses,
@@ -43,7 +48,10 @@ export const courseDbRepository=(
         getEnrolledStudentss,
         getCoursesByStudent,
         filterCourses,
-        coursesTags
+        coursesTags,
+        enrolledCoursesForStudent,
+        reallocateCourses,
+        addLessons
     };
 
     

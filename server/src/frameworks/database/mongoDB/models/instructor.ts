@@ -1,9 +1,9 @@
 import mongoose,{Schema,model} from "mongoose";
 
 interface profilePic{
-    name:String;
-    key?:String;
-    url?:String;
+    name:string;
+    key?:string;
+    url?:string;
 }
 const profileSchema= new Schema<profilePic>({
     name:{
@@ -16,7 +16,7 @@ const profileSchema= new Schema<profilePic>({
     url:{
         type:String
     }
-})
+});
 
 const instructorSchema= new Schema({
     firstName:{
@@ -44,7 +44,7 @@ const instructorSchema= new Schema({
     mobileNumber:{
         type:Number,
         required:true,
-        match:[/^[0-9]{10}/,'Please enter a valid phone number'],
+        match:[/^[0-9]{10}/,"Please enter a valid phone number"],
         unique:true,
         trim:true
     },
@@ -77,7 +77,7 @@ const instructorSchema= new Schema({
     },
     coursesCreated:[
         {type:mongoose.Schema.Types.ObjectId,
-        ref:'Courses'}
+        ref:"Courses"}
     ],isRejected:{
         type:Boolean
     },
@@ -86,7 +86,7 @@ const instructorSchema= new Schema({
     }
 
 
-})
+});
 
 const Instructor=model("Instructors",instructorSchema,"instructor");
 export default Instructor;

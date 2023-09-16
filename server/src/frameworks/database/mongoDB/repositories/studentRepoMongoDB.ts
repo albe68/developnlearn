@@ -1,40 +1,41 @@
 // import {studentInterface} from '../../../../types/studentInterface';
-import { StudentInterface,StudentUpdateInfo } from '@src/types/studentInterface'
-import Student from '../models/student'
-import {StudentRegisterInterface} from '@src/types/studentRegisterInterface'
-import mongoose from 'mongoose'
-import { populate } from 'dotenv'
+import { StudentInterface,StudentUpdateInfo } from "@src/types/studentInterface";
+import Student from "../models/student";
+import {StudentRegisterInterface} from "@src/types/studentRegisterInterface";
+import mongoose from "mongoose";
+import { populate } from "dotenv";
+import {Students} from "@src/entities/student";
 
 export const studentRepositoryMongoDB=()=>{
-        const addStudent=async (student:StudentRegisterInterface)=>{
-            return await Student.create(student)
-        }
+        const addStudent=async (student:Students)=>{
+            return await Student.create(student);
+        };
         const getStudentByEmail=async(email:string)=>{
 
             const user:StudentInterface | null =await Student.findOne({email});
-            console.log(user,"here")
+            console.log(user,"here");
             return user;
-        }
+        };
 
         const getAllStudents=async()=>{
-            const students:StudentInterface[]|null =await Student.find({})
+            const students:StudentInterface[]|null =await Student.find({});
             return students;
-        }
+        };
 
         const getStudent=async(id:string)=>{
             const student:StudentInterface[]|null =
             await Student.findById({
             _id:new mongoose.Types.ObjectId(id)
             });
-            return student
-        }
+            return student;
+        };
 
         const blockStudent=async (id:string)=>{
                 await Student.updateOne(
                     {_id: new mongoose.Types.ObjectId(id)},
                     {isBlocked:true}
                 );
-        }
+        };
 
         const unBlockStudent =async (id:string)=>{
             await Student.updateOne({
@@ -55,20 +56,22 @@ export const studentRepositoryMongoDB=()=>{
         };
 
         const editProfile=async(id:string,edit_data:StudentUpdateInfo)=>{
+            console.log( {...edit_data},"@mongo2");
+            
             await Student.updateOne({
                 _id:new mongoose.Types.ObjectId(id)
             },{
                 ...edit_data
-            },)
-        }
+            },);
+        };
 
         const getEnrolledStudents=async(studentId:string)=>{
           const response=  await Student.findOne({_id:studentId}).populate(
                 {path:"students",populate:{path:"students"}}
                 );
-          console.log(response,"in mongo repository")
+          console.log(response,"in mongo repository");
                 return response;
-        }
+        };
      
         return{
             addStudent,
@@ -81,6 +84,6 @@ export const studentRepositoryMongoDB=()=>{
             editProfile,
             getEnrolledStudents
             
-        }
-}
+        };
+};
     export type StudentRepositoryMongoDB=typeof studentRepositoryMongoDB;

@@ -5,4 +5,4 @@ export interface PaymentInfo{
     amount:number,
     currency:string,
     payment_method:string
-};
+}

@@ -10,7 +10,8 @@ export interface InstructorInterface{
     skills:string,
     about:string,
     certificates:Certificate[],
-    dateRequested:Date
+    dateRequested:Date,
+    isRejected:boolean
     
 
 }

@@ -17,10 +17,10 @@ const paymentSchema:Schema<PaymentI>=new Schema({
     currency:{type:String,required:true},
     payment_method:{type:String,required:true}
    
-})
+});
 
 const Payment=mongoose.model<PaymentI>(
-    'Payment',paymentSchema,'payment'
+    "Payment",paymentSchema,"payment"
 );
 
 export default Payment;

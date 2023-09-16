@@ -1,4 +1,4 @@
-import { PaymentServiceImpl } from "../../frameworks/services/paymentService"
+import { PaymentServiceImpl } from "../../frameworks/services/paymentService";
 
 export const paymentServiceInterface=(
     service:ReturnType<PaymentServiceImpl>
@@ -8,7 +8,7 @@ export const paymentServiceInterface=(
     const getConfig=()=> {
         return service.getConfig(); //return is not returned automatically so had tointroduce return statement
        
-    }
+    };
     return{
         createPaymentIntent,
         getConfig

@@ -4,7 +4,7 @@ import { JwtPayload } from "jsonwebtoken";
 import crypto from "crypto";
 import configKeys from "../../config";
 import { colors } from "colors.ts";
-
+import { IOtp } from "../../types/otpInterface";
 export const authService = () => {
   const hashPassword = async (password: string) => {
     const salt = await bcrypt.genSalt(10);
@@ -17,18 +17,21 @@ export const authService = () => {
   };
 
   const generateToken = (payload: JwtPayload) => {
-    const token = jwt.sign({ payload },configKeys.JWT_SECRET, { expiresIn: "3h" });
+    const token = jwt.sign({ payload }, configKeys.JWT_SECRET, {
+      expiresIn: "1m",
+    });
     return token;
   };
 
   const generateRefreshToken = (payload: JwtPayload) => {
-    const token = jwt.sign({ payload },configKeys.REFRESH_JWT_SECRET,{ expiresIn: "7d" });
+    const token = jwt.sign({ payload }, configKeys.REFRESH_JWT_SECRET, {
+      expiresIn: "1m",
+    });
     return token;
   };
 
   const verifyToken = (token: string) => {
-    return  jwt.verify(token,configKeys.JWT_SECRET);
-    
+    return jwt.verify(token, configKeys.JWT_SECRET);
   };
 
   const decodeToken = (token: string) => {
@@ -49,13 +52,17 @@ export const authService = () => {
     return expirationTimeStamp;
   };
 
-  const otpGenerate = (): number => {
+  const otpGenerate = (): IOtp => {
     const min = 1000;
     const max = 9999;
     const randomBytes = crypto.randomBytes(4); // Generate 4 random bytes
     const randomValue = randomBytes.readUInt32BE(0); // Convert bytes to integer
     const otp = min + (randomValue % (max - min + 1)); // Scale and shift the value
-    return otp;
+    const ObjOtp = {
+      otp: otp,
+      expiresIn: 2,
+    };
+    return ObjOtp;
   };
 
   return {

@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import Course from "../models/course";
 import Payment from "../models/payment";
+import Lesson from "../models/lessons";
 import {
   AddCourseDetailsInterface,
   SavedCourseDetailsInterface,
 } from "@src/types/courseInterface";
-
+import { AddLessonInterface } from "@src/types/LessonInterface";
 export const courseRepositoryMongoDb = () => {
   const addCourse = async (courseDetails: AddCourseDetailsInterface) => {
     const newCourse = new Course(courseDetails);
@@ -51,11 +52,11 @@ export const courseRepositoryMongoDb = () => {
     return response;
   };
 
-  const enrolledStudents = async () => {
+  const enrolledStudents = async (studentId: string) => {
     const enrolled_students = await Course.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId("64d2658868387e584584959b"),
+          _id: new mongoose.Types.ObjectId(studentId),
         },
       },
       {
@@ -102,17 +103,61 @@ export const courseRepositoryMongoDb = () => {
     const payment_details = await Payment.find({});
   };
 
-  const filterCourses = async (keyword: string) => {
-    let query = [keyword];
+  const filterCourses = async (query: string) => {
+    console.log(query)
     const result = await Course.find({ tags: { $all: query } });
-    console.log(result,'mongodb')
+    console.log(result, "mongodb");
     return result;
   };
 
-  const coursesTags=async()=>{
-    const coursesTags=await Course.find({},'tags')
-    return coursesTags;
-  }
+  const coursesTags = async () => {
+    // const coursesTags=await Course.find({},'tags')
+    const getTags = await Course.aggregate([
+      { $unwind: "$tags" },
+      {
+        $group: {
+          _id: null,
+          uniqueArr: { $addToSet: "$tags" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          uniqueArr: 1,
+        },
+      },
+    ]);
+    const tags = getTags[0].uniqueArr;
+    console.log("start".bg_white, getTags[0].uniqueArr, "end".bg_white);
+    return tags;
+  };
+
+  const enrolledCoursesForStudent = async (studentId: string) => {
+    const enrolledCourses = await Course.find({
+      studentsEnrolled: { $in: [studentId] },
+    });
+    console.log(enrolledCourses, "enrolled");
+    return enrolledCourses;
+  };
+
+  const reallocateCourses = async (courseId: string) => {
+    return await Course.findOneAndUpdate(
+      { _id: courseId },
+      { $set: { isDeleted: false } },
+      { new: false }
+    );
+  };
+
+  const addLesson = async (
+    lessonDetails: AddLessonInterface,
+    courseId: string
+  ) => {
+    lessonDetails.courseId = courseId;
+    const course_pay = new Lesson(lessonDetails);
+    const { _id } = await course_pay.save();
+    console.log(_id, "rep");
+    return _id;
+  };
   return {
     addCourse,
     allCourses,
@@ -124,7 +169,10 @@ export const courseRepositoryMongoDb = () => {
     enrolledStudents,
     getCoursesByStudent,
     filterCourses,
-    coursesTags
+    coursesTags,
+    enrolledCoursesForStudent,
+    reallocateCourses,
+    addLesson,
   };
 };
 

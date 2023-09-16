@@ -1,8 +1,8 @@
-import {v2 as cloudinary} from 'cloudinary';
-import multer from 'multer';
-import { RequestHandler } from 'express';
-import cloudinaryStorage, { CloudinaryStorage } from 'multer-storage-cloudinary';
-import configKeys from '../../../config';
+import {v2 as cloudinary} from "cloudinary";
+import multer from "multer";
+import { RequestHandler } from "express";
+import cloudinaryStorage, { CloudinaryStorage } from "multer-storage-cloudinary";
+import configKeys from "../../../config";
 //cloudinary config
 
 cloudinary.config({
@@ -19,7 +19,7 @@ function configMulter(field:string,limit:number,resource_type:string,allowed_for
         params:{
             resource_type:resource_type,
             allowed_format:allowed_format,
-            folder:'developnlearn'
+            folder:"developnlearn"
         }
     };
     const storage=new CloudinaryStorage(storageOptions);
@@ -41,17 +41,17 @@ function configMulter(field:string,limit:number,resource_type:string,allowed_for
 
 // }
 function configImageMulter(field:string,limit:number):RequestHandler{
-    const resource_type='image';
-    const allowed_format=['jpg','jpeg','png'];
+    const resource_type="image";
+    const allowed_format=["jpg","jpeg","png"];
     return configMulter(field,limit,resource_type,allowed_format);
 }
 function configMultipleFiles(field:string,limit:number):RequestHandler{
-    const resource_type='video';
-    const allowed_format=['mp4','mov']
+    const resource_type="video";
+    const allowed_format=["mp4","mov"];
     return configMulter(field,limit,resource_type,allowed_format);
 
 }
 
-export const uploadSingleImage:RequestHandler=configImageMulter('image',1);
-export const uploadMultipleVideos:RequestHandler=configMultipleFiles('videos',5)
+export const uploadSingleImage:RequestHandler=configImageMulter("image",1);
+export const uploadMultipleVideos:RequestHandler=configMultipleFiles("videos",5);
 

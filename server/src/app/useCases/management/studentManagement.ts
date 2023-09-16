@@ -47,7 +47,7 @@ export const viewProfileU=async(
     studentId:string,
     studentRepository:ReturnType<StudentDbInterface>
 )=>{
-    const profile_details=await studentRepository.viewProfile(studentId)
+    const profile_details=await studentRepository.viewProfile(studentId);
     return profile_details;
 };
 
