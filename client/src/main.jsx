@@ -12,10 +12,10 @@ import { ToastContainer } from 'react-toastify'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider>
+      {/* <ThemeProvider > */}
     <RouterProvider router={AppRouter}/>
     <ToastContainer/>
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
   
     </Provider>
   </React.StrictMode>,

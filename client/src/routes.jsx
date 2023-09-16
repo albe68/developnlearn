@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { Student, Instructor, Admin } from "./App";
+import ErrorPage from "./components/common/errorPage";
 import StudentLoginPage from "./components/pages/student/StudentLoginPage";
 import StudentHomePage from "./components/pages/student/StudentHomePage";
 import StudentRegisterPage from "./components/pages/student/StudentRegisterPage";
 import InstructorLoginPage from "./components/pages/instructor/instructorLoginPage";
 import InstructorHomePage from "./components/pages/instructor/InstructorHomePage";
 import AdminLoginPage from "./components/pages/admin/adminLoginPage";
-import StudentMangement from "./components/pages/admin/studentMangement";
+// import StudentMangement from "./components/pages/admin/studentMangement";
 import AdminHomePage from "./components/pages/admin/AdminHomePage";
 import InstructorRegisterPage from "./components/pages/instructor/instructorRegisterPage";
-// import CoursesPage from "./components/pages/course/CoursesPage";
 import StudentsTab from "./components/pages/admin/studentsTab";
 import ViewAllInstructors from "./components/pages/admin/viewAllInstructors";
 import ViewAllInstructorsRequests from "./components/pages/admin/ViewInstructorsRequests";
@@ -19,7 +19,7 @@ import CoursesTab from "./components/pages/course/CoursesTab";
 import OtpPage from "./components/pages/student/OtpPage";
 import EditCoursePage from "./components/pages/course/editCourse";
 import RejectedInstructors from "./components/pages/instructor/rejectedInstructors";
-import CourseList from "./components/pages/course/courseList";
+// import CourseList from "./components/pages/course/courseList";
 import PaymentPage from "./components/pages/payment/stripe-index";
 import StudentProfile from "./components/pages/student-dashboard/student-profile";
 import UserDashboard from "./components/pages/student-dashboard/student-dashboard";
@@ -31,18 +31,20 @@ import EnrolledStudents from "./components/pages/enrolled-students/enrolledStude
 import CouseDetailIndexPage from "./components/pages/course-detail-instructor/course-detail-instructor-index";
 import PaymentDetailIndexPage from "./components/pages/payment-detail/payment-detail-index";
 import AddLessonIndex from "./components/pages/add-lesson/add-lesson-index";
+import WatchLessonIndex from "./components/pages/watch-lesson/watch-lesson-index";
 const LazyCourseList = lazy(() =>
-  import("./components/pages/course/CoursesPage")
+  import("./components/pages/course/list-courses-user.js/index-courses")
 );
 const AppRouter = createBrowserRouter([
   {
     path: "/",
     element: <Student />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: (
-          <Suspense fallback={<div>HI</div>}>
+          <Suspense fallback={<div>Loading</div>}>
             <StudentHomePage />
           </Suspense>
         ),
@@ -67,6 +69,10 @@ const AppRouter = createBrowserRouter([
       {
         path: "/courses/:courseId",
         element: <IndividualCourse />,
+      },
+      {
+        path: "/watch-course",
+        element: <WatchLessonIndex />,
       },
     ],
   },
