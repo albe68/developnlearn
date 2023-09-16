@@ -1,5 +1,5 @@
-import { AuthServiceReturn } from '../../frameworks/services/authService';
-import {JwtPayload} from '../../types/common'
+import { AuthServiceReturn } from "../../frameworks/services/authService";
+import {JwtPayload} from "../../types/common";
 
 export const authServiceInterface=(service:AuthServiceReturn)=>{
 const hashPassword= (password:string)=> service.hashPassword(password);
@@ -31,10 +31,10 @@ return {
     decodeToken,
     otpGenerate
 
-    }
+    };
 
 
 
-}
+};
 
 export type AuthServiceInterface= typeof authServiceInterface;

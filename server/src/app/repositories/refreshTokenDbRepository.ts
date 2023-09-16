@@ -1,4 +1,4 @@
-import {RefreshTokenRepositoryMongoDB} from '../../frameworks/database/mongoDB/repositories/refreshTokenRepoMongoDB';
+import {RefreshTokenRepositoryMongoDB} from "../../frameworks/database/mongoDB/repositories/refreshTokenRepoMongoDB";
 
 export const refreshTokenDbRepository=( 
     repository: ReturnType<RefreshTokenRepositoryMongoDB>
@@ -8,7 +8,7 @@ export const refreshTokenDbRepository=(
         userId:string,
         token:string,
         expriesAt:number
-    )=>await repository.saveRefreshToken(userId,token,expriesAt)
+    )=>await repository.saveRefreshToken(userId,token,expriesAt);
 
     const deleteRefreshToken=async (id:string)=>
     await repository.deleteRefreshToken(id);
@@ -20,7 +20,7 @@ export const refreshTokenDbRepository=(
         saveRefreshToken,
         deleteRefreshToken,
         findRefreshToken
-    }
-}
+    };
+};
 
 export type RefreshTokenDbInterface =typeof refreshTokenDbRepository

@@ -9,7 +9,13 @@ const END_POINTS = {
   ENROLL: "api/course/enroll-student",
   RAZOR: "api/payment/create-order",
   CAPTURE_RZP: "api/payment/capture",
-  INDIVIDUAL_COURSE:"api/course",
+  INDIVIDUAL_COURSE: "api/course",
+  FILTER_COURSE: "api/course/cou/filte",
+  ENROLLEDCOURSES: "api/course/courses/enrolled-courses",
+  SINGLE: "api/students/view-profile",
+  UPDATE_PROFILE: "api/students/edit-profile",
+  TAGS: "api/course/courses/tags",
+  VIEW_ENROLLED_STUDENTS: "api/course/courses/view-enrolled-students",
 
   //ADMIN
   GET_ALL_STUDENTS: "/api/students/get-all-students",
@@ -19,6 +25,12 @@ const END_POINTS = {
   ADD_COURSE: "/api/course/add-course",
   ALL_COURSES: "/api/course/courses",
   EDIT_COURSE: "/api/course/edit-course/",
+  REMOVE_COURSE: "/api/course/remove-course/",
+  RESTORE_COURSE: "/api/course/restored-course/",
+  GET_PAYMENT_DETAILS: "/api/payment/payment-details",
+  ADD_LESSON: "/api/course/instructor/add-lessons-by-course/",
+  WATCH_LESSON: "/api/course/:courseId/watch-lesson",
+
   //COMMON
   REFRESH_TOKEN: "api/all/refresh-token/refresh",
 };

@@ -11,8 +11,11 @@ import { OtpDbRepository } from "@src/app/repositories/otpDbRepository";
 import { SendEmailService } from "@src/frameworks/services/sendEmailServices";
 import { authService } from "@src/frameworks/services/authService";
 
+// import createStudent from "../../../entities/student";
+import { Students } from "@src/entities/student";
+import {IOtp} from "../../../types/otpInterface"
 export const studentRegister = async (
-  student: StudentRegisterInterface,
+  student: Students,
   studentRepository: ReturnType<StudentDbInterface>,
   refreshTokenRepository: ReturnType<RefreshTokenDbInterface>,
   authService: ReturnType<AuthServiceInterface>
@@ -35,6 +38,7 @@ export const studentRegister = async (
     student.password = await authService.hashPassword(student.password);
   }
 
+  // const newStudentEnitity= createStudent(student); //entity layer
   const { _id: studentId, email } = await studentRepository.addStudent(student);
   const payload = {
     Id: studentId,
@@ -43,13 +47,14 @@ export const studentRegister = async (
   };
   const accessToken = authService.generateToken(payload);
   const refreshToken = authService.generateRefreshToken(payload);
-  const expirationDate =authService.decodedTokenAndReturnExpireDate(refreshToken);
+  const expirationDate =
+    authService.decodedTokenAndReturnExpireDate(refreshToken);
   await refreshTokenRepository.saveRefreshToken(
     studentId,
     refreshToken,
     expirationDate
   );
- 
+
   return { accessToken, refreshToken };
 };
 
@@ -65,7 +70,7 @@ export const studentLogin = async (
 
   if (!student) {
     throw new AppError("this user doesn't exsist", 404);
-  };
+  }
   const isPasswordCorrect = await authService.comparePassword(
     password,
     student.password
@@ -73,7 +78,7 @@ export const studentLogin = async (
 
   if (!isPasswordCorrect) {
     throw new AppError("password is incorrect", 401);
-  };
+  }
 
   const payload = {
     Id: student._id,
@@ -83,7 +88,8 @@ export const studentLogin = async (
   await refreshTokenRepository.deleteRefreshToken(student._id); //deleting refresh token
   const accessToken = authService.generateToken(payload); //geneating access token
   const refreshToken = authService.generateRefreshToken(payload); //generating refresh token
-  const expirationDate =authService.decodedTokenAndReturnExpireDate(refreshToken); //decode token and return expiry date
+  const expirationDate =
+    authService.decodedTokenAndReturnExpireDate(refreshToken); //decode token and return expiry date
 
   await refreshTokenRepository.saveRefreshToken(
     student._id,
@@ -98,20 +104,20 @@ export const studentLogout = async (
   studentRepository: ReturnType<StudentDbInterface>,
   refreshTokenRepository: ReturnType<RefreshTokenDbInterface>,
   authService: ReturnType<AuthServiceInterface>
-) => {
-
-};
+) => {};
 
 export const emailVerify = async (
   number: string,
   otpDbRepository: ReturnType<OtpDbRepository>,
   authService: ReturnType<AuthServiceInterface>
 ) => {
-  const otp = authService.otpGenerate();
+  const otp:IOtp = authService.otpGenerate();
   try {
     await otpDbRepository.addOtp(otp);
   } catch (error) {
-    console.error(error)
+    console.error(error);
+    //this stops the application with 500 SERVER ERROR
+    throw new AppError("Error while generating OTP", 500);
   }
 
   const isValid = await otpDbRepository.checkDb(number);

@@ -17,18 +17,17 @@ const refreshTokenController = (
   const authService = authServiceInterface(authServiceImpl());
 
   const refreshToken = asyncHandler(async (req: Request, res: Response) => {
-    let refreshToken = req.body.refreshToken;
+    const refreshToken = req.body.refreshToken;
     const response = await refreshTokenU(
       refreshToken,
       dbRepositoryRefreshToken,
       authService
     );
-    console.log(response,"IIFE")
     res.status(200).json({
-      status:"success",
-      message:"refresh token successfully",
-      accessToken:response
-    })
+      status: "success",
+      message: "access token generated successfully",
+      accessToken: response,
+    });
   });
 
   return { refreshToken };

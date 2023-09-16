@@ -27,7 +27,10 @@ export const instructorRegister = async (
     instructor.password = await authService.hashPassword(password);
   }
   instructor.dateRequested = new Date();
+  console.log(instructor,"cj");
+
   emailService.sendOtp(instructor.email, "otp", "8900");
+  console.log(instructor,"cj");
   const response = await instructorRepository.addInstructor(instructor);
   return response;
 };

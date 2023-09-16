@@ -12,6 +12,8 @@ const initialState = {
   },
   isLoggedIn: accessToken ? true : false,
   userType: decodedToken?.payload.role,
+  userId: decodedToken?.payload.Id,
+
 };
 
 const authSlice = createSlice({
@@ -33,6 +35,7 @@ const authSlice = createSlice({
       };
       state.isLoggedIn = true;
       state.userType = action.payload.userType;
+      state.userId=action.payload.userId;
       console.log("user logged in");
     },
     clearToken(state) {
@@ -55,12 +58,16 @@ export const selectIsloggedIn = () => {
 
   return accessToken ? true : false;
 };
-
+//these are selectors returning data of state
 export const selectAccessToken = (state) => {
   const accessTokenString = state.auth.data.accessToken;
   const accessToken = JSON.parse(accessTokenString ?? "")?.accessToken || "";
   return accessToken;
 };
 export const selectUserType = (state) => {
-  state.auth.userType;
+ return state.auth.userType;
 };
+export const selectUserId=(state)=>{
+ return state.auth.userId;
+  
+}

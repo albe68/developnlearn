@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-const decodeToken=(jwtToken)=>{
+const decodeJwtToken=(jwtToken)=>{
     try{
         const decodeToken=jwtDecode(jwtToken);
         return decodeToken;
@@ -10,4 +10,4 @@ const decodeToken=(jwtToken)=>{
     }
 }
 
-export default decodeToken;
+export default decodeJwtToken;

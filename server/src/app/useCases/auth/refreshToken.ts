@@ -8,13 +8,14 @@ export const refreshTokenU = async (
   refreshDbRepository: ReturnType<RefreshTokenDbInterface>,
   authService: ReturnType<AuthServiceInterface>
 ) => {
+  console.log("🚀 ~ file: refreshToken.ts:11 ~ refreshToken:", refreshToken)
   if (!refreshToken) {
     throw new AppError("Refresh Token Not found", HttpStatusCode.NOT_FOUND);
   }
   const exsistingToken = await refreshDbRepository.findRefreshToken(
     refreshToken
   );
-
+  
   if (!exsistingToken) {
     throw new AppError(
       "Refresh Token Doesnt Exist",

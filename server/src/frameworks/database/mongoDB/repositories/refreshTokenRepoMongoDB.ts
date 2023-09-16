@@ -1,5 +1,5 @@
 import mongoose  from "mongoose";
-import RefreshToken from '../models/token';
+import RefreshToken from "../models/token";
 
 export const refreshTokenDbRepositoryMongoDB=()=>{
     const saveRefreshToken= async(
@@ -15,12 +15,12 @@ export const refreshTokenDbRepositoryMongoDB=()=>{
 
     const deleteRefreshToken=async (id:string)=>{
         await RefreshToken.deleteOne({userId: new mongoose.Types.ObjectId(id)});    
-}
+};
 
 const findRefreshToken= async (refreshToken:string)=>{
     const token= await RefreshToken.findOne({token:refreshToken});
     return token;
-}
+};
 
 return{
     saveRefreshToken,

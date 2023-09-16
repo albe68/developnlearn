@@ -28,3 +28,4 @@ export const {setStudents,blockStudent}=studentSlice.actions;
 
 export const studentReducer=studentSlice.reducer;
 export const selectStudents = (state) => state.students.students;
+export const selectStudentId = state => state.students;

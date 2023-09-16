@@ -1,35 +1,20 @@
-import axios from 'axios';
-import api from "../../middlewares/interceptors";
-
-
-// const baseURL = 'http://localhost:5000/';
-// const axiosInstance = axios.create({ baseURL });
-
-// axiosInstance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
+// import api from "../../middlewares/protected-interceptor";
+import axiosInstance from "../../middlewares/interceptors";
 export const login = async (endpoint, data) => {
   try {
-    const response = await api.post(`${endpoint}`, data);
+    const response = await axiosInstance.post(`${endpoint}`, data);
     return response;
   } catch (error) {
-    return Promise.reject(error);
+    console.log(error.response.data.message,'service')
+    return Promise.reject(error.response.data.message)
   }
 };
 
-export const register=async(endpoint,data)=>{
-    try{
-        const response = await api.post(`${endpoint}`, data);
-        return response;
-
-    }
-    catch(err){
-return Promise.reject(err);
-    }
-}
+export const register = async (endpoint, data) => {
+  try {
+    const response = await axiosInstance.post(`${endpoint}`, data);
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -1,12 +1,10 @@
-import { refreshTokenApi } from "../../endpoints/auth/refreshToken";
-import COMMON_CONSTANTS from "../../../constants/common"
+import api from "../../middlewares/test";
 
-export const refreshTokenService=async(
-    endpoint,refreshToken
-)=>{
-    const response=await api.post(`${COMMON_CONSTANTS}${endpoint}`,
-    {
-        refreshToken:`Bearer${refreshToken}`
-    })
-}
+export const refreshTokenService = async (endpoint, refreshToken) => {
   
+  const response = await api.post(`${endpoint}`, {
+    refreshToken: `Bearer${refreshToken}`,
+  });
+  console.log(response, "high quality");
+  return response.data.accessToken;
+};
