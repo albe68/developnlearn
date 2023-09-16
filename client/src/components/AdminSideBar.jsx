@@ -131,8 +131,17 @@ export default function AdminSideBar() {
                 </ListItemPrefix>
                 Instructors
               </ListItem>
-              </Link>
+             
 
+              </Link>
+              <Link to={'/admin/payment-detail-index'}>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                Payment
+              </ListItem>
+              </Link>
             </List>
           </AccordionBody>
         </Accordion>

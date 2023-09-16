@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Tabs,
   TabsHeader,
@@ -53,7 +53,10 @@ export default function CoursesTab() {
       </TabsHeader>
       <TabsBody>
         {data.map(({ value }) => (
-          <TabPanel key={value} value={value} className="pt-5">
+          //the values have only two values .. I need unique values as same elements are rendering
+          <TabPanel  key={value} value={value} className="pt-5">
+  {console.log("check wherther key is there or not",value)}
+
             {tabComponents[value]} 
           </TabPanel>
         ))}

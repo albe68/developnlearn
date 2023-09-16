@@ -34,8 +34,8 @@ export default function InstructorRegisterPage() {
     },[isLoggedIn,navigate])
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#B3B6E5] sm:p-6 md:p-12">
-    <div className="bg-[#7C83F7] flex flex-col sm:flex-row rounded-lg shadow-md text-black">
+    <div className="flex items-center justify-center h-screen sm:p-6 md:p-12">
+    <div className=" flex flex-col sm:flex-row rounded-lg shadow-md text-black">
       {/* Part 1  */}
       {/* <div className="p-8 sm:w-96">
         <h2 className="text-5xl text-black font-semibold mb-4">Signup</h2>

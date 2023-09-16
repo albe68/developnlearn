@@ -4,7 +4,7 @@ import {loginInstructor} from '../../../api/endpoints/auth/instructorAuth';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken,selectIsloggedIn,selectUserType } from "../../../redux/reducers/authSlice";
-
+import {toast} from 'react-toastify';
 const InstructorLoginPage=()=>{
     const navigate=useNavigate();
     const dispatch=useDispatch();
@@ -14,12 +14,17 @@ const InstructorLoginPage=()=>{
     const handleSubmit=async(instructorData)=>{
       try { 
         const response=await loginInstructor(instructorData);
+        console.log(response,'c')
+        toast.success(response.data)
         const {accessToken,refreshToken}=response.data;
         dispatch(setToken({accessToken,refreshToken,userType:'instructor'}));
         response && navigate('/instructors');
     }
         catch(err){
-            console.log(err);
+
+            console.log(err,'here1');
+        toast.success(err)
+
         }
         
     }

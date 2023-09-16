@@ -1,10 +1,11 @@
 import React from 'react'
-import { Field,Formik,Form } from 'formik'
+import { Field,Formik,Form,ErrorMessage } from 'formik'
 import { PaintBrushIcon,PaperClipIcon,PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { CourseAddForm } from './courseadd-form';
 import { useState } from 'react';
 import { addCourse } from '../../../api/endpoints/auth/courseManagement';
-import {toast} from 'react-toastify'
+import {toast} from 'react-toastify';
+import { addCourseValidationSchema } from '../../../validations/course/addCourseValidationSchema';
 export default function AddCourseTab() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [videos,setVideos]=useState(null);
@@ -26,18 +27,21 @@ const handleForm=async(values,{resetForm})=>{
   Object.keys(values).forEach(key=>{
     formData.append(key,values[key]);
   });
-  console.log(formData,"here");
+  console.log(formData.values,"here");
+  for (const value of formData.values()) {
+    console.log(value,'mrthyu');
+  }
  const response=await addCourse(formData);
  resetForm();
   
- toast.success(response.data.message)
+//  toast.success(response.data.message)
 
 }
 return(
   <>
 
 <section className="max-w-lg p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-<Formik initialValues={intialValues}  onSubmit={handleForm}>
+<Formik validationSchema={addCourseValidationSchema} initialValues={intialValues}  onSubmit={handleForm}>
 <Form > 
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
@@ -54,6 +58,11 @@ return(
                   autoComplete="title"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                   <ErrorMessage
+                  name="title"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
             </div>
 
@@ -66,8 +75,12 @@ return(
                   type="text"
                   name="duration"
                   id="duration"
-                  autoComplete="duration"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                     <ErrorMessage
+                  name="duration"
+                  component="div"
+                  className="text-red-500 text-sm"
                 />
               </div>
             </div>
@@ -84,6 +97,11 @@ return(
                   autoComplete="description"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                  <ErrorMessage
+                  name="description"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
             </div>
             <div className="sm:col-span-3">
@@ -97,6 +115,11 @@ return(
                   id="level"
                   autoComplete="level"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                 <ErrorMessage
+                  name="level"
+                  component="div"
+                  className="text-red-500 text-sm"
                 />
               </div>
             </div>
@@ -113,12 +136,18 @@ return(
                   autoComplete="price"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
+
                   <option>Free</option>
 
                   <option value={2000}>INR ₹2000</option>
                   <option value={2000}>INR ₹3000</option>
                   <option value={2000}>INR 4000</option>
                 </Field>
+                <ErrorMessage
+                  name="price"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
             </div>
 
@@ -134,6 +163,11 @@ return(
                   autoComplete="requirements"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                  <ErrorMessage
+                  name="requirements"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
             </div>
 
@@ -148,6 +182,11 @@ return(
                   id="tags"
                   autoComplete="tags"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                  <ErrorMessage
+                  name="tags"
+                  component="div"
+                  className="text-red-500 text-sm"
                 />
               </div>
             </div>

@@ -1,15 +1,12 @@
 import React from "react";
 import { razorPayment } from "../../../api/endpoints/payment/payment";
 import { enrollStudent } from "../../../api/endpoints/payment/payment";
-import {
-
-  Button,
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 // import COMMON_CONSTANTS from "../../../constants/common";
+import { toast } from "react-toastify";
 
-const handlePay = async () => {
-  const response_create = await razorPayment(); //create razor api
-  console.log(response_create,"h")
+const handlePay = async (courseId, price) => {
+  const response_create = await razorPayment(price); //create razor api
   const response = response_create.razorpay_payment_id; // response of oreder object from server
   const options = {
     key: response_create.data.rzp_id,
@@ -22,23 +19,34 @@ const handlePay = async () => {
      */
     handler: async (res) => {
       try {
-        const currency=response_create.data.order.currency;
-        const amount= response_create.data.order.amount;
-        const payment_method='visa';
-        const source={
-          currency,amount,payment_method
-        }
-        console.log(source,"might be");
+        const currency = response_create.data.order.currency;
+        const amount = response_create.data.order.amount;
+        const payment_method = "visa";
+        const source = {
+          currency,
+          amount,
+          payment_method,
+        };
 
-       const value= Object.assign(res,source)
-       console.log("ys",value)
-        await enrollStudent("64d2658868387e584584959b",value)
+        const value = Object.assign(res, source);
+        try {
+          await enrollStudent(courseId, value);
+        } catch (err) {
+          console.error(err, "should show error");
+
+          toast.error("You have already been enrolled", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+        }
         //handler can be used
         //capture can be manulaly done but no need since it is automtated in
         //order object
-        console.log(res,"touch")
       } catch (err) {
-        console.log(err);
+        console.error(err);
+
+        toast.error("Something went wrong", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       }
     },
     theme: {
@@ -49,12 +57,28 @@ const handlePay = async () => {
   rzp1.open();
 };
 
-export default function Razorpay_button() {
-  return(
-       <div className="flex justify-center pb-3">
-            <Button size="sm" className="w-24 flex items-center justify-center " ripple={true} onClick={handlePay}>Pay</Button>
-
-        </div>
-
-  ) 
+export default function RazorpayButton({ courseId, coursePrice, disabled }) {
+  const handleClick = () => {
+    try {
+      handlePay(courseId, coursePrice);
+    } catch (err) {
+      console.log(err, "show the toast");
+      toast.error("Something went wrong", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+  };
+  return (
+    <div className="flex justify-center pb-3">
+      <Button
+        size="sm"
+        className="w-24 flex items-center justify-center "
+        ripple={true}
+        onClick={handleClick}
+        disabled={disabled}
+      >
+        Start Watching
+      </Button>
+    </div>
+  );
 }
