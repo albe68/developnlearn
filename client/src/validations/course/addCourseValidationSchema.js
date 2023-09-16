@@ -1,6 +1,6 @@
 import {number, object,string} from 'yup'
 
-export const editCourseValidationSchema=object().shape({
+export const addCourseValidationSchema=object().shape({
     title:string().trim().required(" title is required"),
     duration:number().required("duration is required"),
     level:string().trim().required("level is required"),

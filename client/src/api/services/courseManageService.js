@@ -1,19 +1,7 @@
-// import axios from "axios"
-import api from "../middlewares/interceptors";
+import axiosInstance from "../middlewares/test";
+import api from "../middlewares/test";
 
 
-// const baseURL = 'http://localhost:5000/';
-
-// const axiosInstance=axios.create({baseURL})
-
-// axiosInstance.interceptors.response.use(
-//     (response)=>{
-//         return response;
-//     },
-//     (error)=>{
-//         return Promise.reject(error);
-//     }
-// )
 
 export const addCourseService =async(endpoint,courseData)=>{
     try{
@@ -35,9 +23,9 @@ export const allCoursesService=async(endpoint)=>{
     }
 }
 
-export const editCourseService=async(endpoint,editData)=>{
+export const editCourseService=async(endpoint,editData,courseId)=>{
     try{
-        const response=await api.patch(`${endpoint}64d315e28e2d878785c8936c`,editData);
+        const response=await axiosInstance.patch(`${endpoint}64d315e28e2d878785c8936c`,editData);
         return response.data;
 
     }
