@@ -23,7 +23,6 @@ import RejectedInstructors from "./components/pages/instructor/rejectedInstructo
 import PaymentPage from "./components/pages/payment/stripe-index";
 import StudentProfile from "./components/pages/student-dashboard/student-profile";
 import UserDashboard from "./components/pages/student-dashboard/student-dashboard";
-import Razorpay_button from "./components/pages/payment/razorPay-checkout";
 import IndividualCourse from "./components/pages/course/viewCourse";
 import Studentcourses from "./components/pages/student-dashboard/student-courses";
 import DashHome from "./components/pages/student-dashboard/dash-home";
@@ -62,13 +61,16 @@ const AppRouter = createBrowserRouter([
         path: "payment",
         element: <PaymentPage />,
       },
-      {
-        path: "rzp",
-        element: <Razorpay_button />,
-      },
+
       {
         path: "/courses/:courseId",
         element: <IndividualCourse />,
+        children: [
+          {
+            path: "/courses/:courseId/watch-course",
+            element: <WatchLessonIndex />,
+          },
+        ],
       },
       {
         path: "/watch-course",

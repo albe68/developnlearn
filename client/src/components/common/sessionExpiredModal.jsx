@@ -7,8 +7,8 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
-export default function SessionExpiredModal({show, onClose}) {
-  console.log(show,onClose)
+export default function SessionExpiredModal({ show, onClose }) {
+  console.log(show, onClose, "hi");
   const navigate = useNavigate();
 
   const [size, setSize] = React.useState(null);
@@ -21,8 +21,6 @@ export default function SessionExpiredModal({show, onClose}) {
 
   return (
     <>
-   
-
       <Dialog open={show} size="xs" handler={onClose}>
         <DialogHeader>Login In</DialogHeader>
         <DialogBody divider>Session expired login In again</DialogBody>

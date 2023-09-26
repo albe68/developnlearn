@@ -22,3 +22,13 @@ export const watchLessonService = async (endpoint, lesson, courseId) => {
     console.log(err);
   }
 };
+
+export const listLessonsService = async (endpoint, lesson, courseId) => {
+  try {
+    console.log(lesson, "lola");
+    const response = await axiosInstance.get(`${endpoint}${courseId}`, lesson);
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+};
