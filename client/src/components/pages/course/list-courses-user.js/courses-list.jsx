@@ -9,7 +9,7 @@ import { viewCourse } from "../../../../api/endpoints/course/course";
 import { Link } from "react-router-dom";
 import ShimmerCards from "./shimmer-cards";
 const CoursesPage = (props) => {
-  console.log(props, "success");
+  console.log( "success");
   const [courses, setCourses] = useState([]); //is,the intial state of courses cards, lazy loading?
   const [isLoading, setIsLoading] = useState(true);
   const [dataFromChild, setDataFromChild] = useState([]);

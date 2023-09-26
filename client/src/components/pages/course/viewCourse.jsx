@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../../../redux/reducers/authSlice";
+import { listLessons } from "../../../api/endpoints/course/lesson";
 const content = [
   {
     name: ". Install and Configure the OpenAI SDK in a Node.js Project",
@@ -22,6 +23,8 @@ const content = [
 ];
 const IndividualCourse = () => {
   const [courses, setCourses] = useState([]); //is,the intial state of courses cards, lazy loading?
+  const [lessons, setLessons] = useState([]); //is,the intial state of courses cards, lazy loading?
+
   const params = useParams();
   const route = params.courseId;
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +46,22 @@ const IndividualCourse = () => {
         console.error("Error fetching course data:", error);
       }
     };
+    const fetchLessons = async (routes) => {
+      try {
+        const response = await listLessons(route);
+        setLessons(response?.data?.data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      } catch (err) {
+        toast.error("Something went wrong", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        console.error("Error fetching course data:", err);
+      }
+    };
     fetchCourses(route);
+    fetchLessons(route);
   }, []);
 
   if (isLoading) {
@@ -225,6 +243,7 @@ const IndividualCourse = () => {
   const enrolled = courses.studentsEnrolled.includes(studentId);
   return (
     <>
+    {console.log(lessons,'ha')}
       <section className=" dark:bg-gray-900">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           {/* div htmlFor description side*/}
@@ -271,15 +290,15 @@ const IndividualCourse = () => {
               </h2>
             </div>
             {/* <p className="mb-4">{courses?._id}</p> */}
-              <div>
-                <RazorpayButton
-                  disabled={enrolled}
-                  courseId={courses?._id}
-                  coursePrice={courses?.price}
-                >
-                  Start Watching
-                </RazorpayButton>
-              </div>
+            <div>
+              <RazorpayButton
+                disabled={enrolled}
+                courseId={courses?._id}
+                coursePrice={courses?.price}
+              >
+                Start Watching
+              </RazorpayButton>
+            </div>
             <h1 className="text-xl">Course Introduction</h1>
             <br />
             <p>

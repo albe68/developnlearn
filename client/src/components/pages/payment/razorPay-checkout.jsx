@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { razorPayment } from "../../../api/endpoints/payment/payment";
 import { enrollStudent } from "../../../api/endpoints/payment/payment";
 import { Button } from "@material-tailwind/react";
 // import COMMON_CONSTANTS from "../../../constants/common";
 import { toast } from "react-toastify";
-
+import { selectIsloggedIn } from "../../../redux/reducers/authSlice";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useNavigate } from "react-router-dom";
+import SessionExpiredModal from "../../common/sessionExpiredModal";
 const handlePay = async (courseId, price) => {
   const response_create = await razorPayment(price); //create razor api
   const response = response_create.razorpay_payment_id; // response of oreder object from server
@@ -58,14 +61,53 @@ const handlePay = async (courseId, price) => {
 };
 
 export default function RazorpayButton({ courseId, coursePrice, disabled }) {
+  const [showSessionExpiredModal, setshowSessionExpiredModal] = useState(false);
+
+  const handlecloseexpired = () => {
+    setshowSessionExpiredModal(false);
+  };
+  useEffect(() => {
+    const handleSessionexpires = () => {
+      setshowSessionExpiredModal(true);
+    };
+    window.addEventListener("sessionExpired", handleSessionexpires);
+    return () => {
+      window.removeEventListener("sessionExpired", handleSessionexpires);
+    };
+  }, []);
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsloggedIn);
   const handleClick = () => {
-    try {
-      handlePay(courseId, coursePrice);
-    } catch (err) {
-      console.log(err, "show the toast");
-      toast.error("Something went wrong", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    if (!isLoggedIn) {
+      console.log("first");
+      navigate('/login')
+      toast('Login to watch course ', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      // {
+      //   showSessionExpiredModal && (
+      //     <SessionExpiredModal
+      //       show={showSessionExpiredModal}
+      //       onClose={handlecloseexpired}
+      //     />
+      //   );
+      // }
+    } else {
+      try {
+        handlePay(courseId, coursePrice);
+      } catch (err) {
+        console.log(err, "show the toast");
+        toast.error("Something went wrong", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     }
   };
   return (
