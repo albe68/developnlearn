@@ -30,6 +30,7 @@ const END_POINTS = {
   GET_PAYMENT_DETAILS: "/api/payment/payment-details",
   ADD_LESSON: "/api/course/instructor/add-lessons-by-course/",
   WATCH_LESSON: "/api/course/:courseId/watch-lesson",
+  LIST_LESSON: "/api/course/:courseId/lessons",
 
   //COMMON
   REFRESH_TOKEN: "api/all/refresh-token/refresh",
