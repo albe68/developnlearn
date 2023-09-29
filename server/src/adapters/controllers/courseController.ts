@@ -79,7 +79,7 @@ const courseController = (
   const getIndividualCourse = asyncHandler(
     async (req: CustomRequest, res: Response) => {
       const studentId: string | undefined = req.user?.Id;
-
+      console.log("🚀 ~ file: courseController.ts:82 ~ studentId:", req.user);
       const courseId = req.params.courseId;
       const single_course = await getIndividualCourseU(
         courseId,
@@ -247,7 +247,8 @@ const courseController = (
   });
 
   const getLessonByCourse = asyncHandler(async (req, res) => {
-    const courseId = req.body.courseId;
+    const courseId = req.params.courseId;
+    console.log(courseId);
     const course = await getLessonByCourseU(courseId, dbRepositoryLesson);
     console.log(course, "@controller");
     res.status(200).json({

@@ -91,7 +91,7 @@ export const courseRepositoryMongoDb = () => {
     return enrolled_students;
   };
 
-  const getCoursesByStudent = async () => {
+  const getCoursesByStudent = async (studentId:string) => {
     const courses = await Course.find({
       studentsEnrolled: {
         $in: [new mongoose.Types.ObjectId("64c8b0af3521dca7afbfdd0e")],
